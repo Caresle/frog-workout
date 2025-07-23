@@ -20,31 +20,33 @@ class MenuItem {
   });
 
   GoRoute getGoRoute() => GoRoute(
-        path: path,
-        name: name,
-        builder: (context, state) => widgetPage,
-        pageBuilder: pageBuilder ??
-            (context, state) {
-              return CustomTransitionPage(
-                  child: widgetPage,
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) =>
-                          SlideTransition(
-                            position: animation.drive(
-                              Tween<Offset>(
-                                      begin: const Offset(0.05, 0),
-                                      end: Offset.zero)
-                                  .chain(CurveTween(curve: Curves.easeIn)),
-                            ),
-                            child: child,
-                          ));
-            },
-      );
+    path: path,
+    name: name,
+    builder: (context, state) => widgetPage,
+    pageBuilder:
+        pageBuilder ??
+        (context, state) {
+          return CustomTransitionPage(
+            child: widgetPage,
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) =>
+                    SlideTransition(
+                      position: animation.drive(
+                        Tween<Offset>(
+                          begin: const Offset(0.05, 0),
+                          end: Offset.zero,
+                        ).chain(CurveTween(curve: Curves.easeIn)),
+                      ),
+                      child: child,
+                    ),
+          );
+        },
+  );
 }
 
 final appMenuItems = <MenuItem>[
   const MenuItem(
-    name: 'Home',
+    name: 'Workouts',
     path: '/',
     icon: Icons.home_rounded,
     isBottom: true,
@@ -53,8 +55,8 @@ final appMenuItems = <MenuItem>[
   const MenuItem(
     name: 'Exercises',
     path: '/exercises',
-    icon: Icons.home_rounded,
+    icon: Icons.fitness_center_rounded,
     isBottom: true,
-    widgetPage: ExerciseScreen()
+    widgetPage: ExerciseScreen(),
   ),
 ];
