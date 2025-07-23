@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:workouts_app/widgets/widgets.dart';
 
 class ExerciseList extends StatelessWidget {
   const ExerciseList({super.key});
@@ -9,30 +10,8 @@ class ExerciseList extends StatelessWidget {
       child: ListView.builder(
         itemCount: 3,
         itemBuilder: (context, index) {
-          return _ExerciseItem();
+          return ExerciseItem();
         },
-      ),
-    );
-  }
-}
-
-class _ExerciseItem extends StatelessWidget {
-  const _ExerciseItem();
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      clipBehavior: Clip.hardEdge,
-      child: ListTile(
-        onTap: () {},
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('Exercise name'),
-            IconButton(onPressed: () {}, icon: Icon(Icons.more_horiz_rounded)),
-          ],
-        ),
-        subtitle: Row(children: [Chip(label: const Text('KG'))]),
       ),
     );
   }
