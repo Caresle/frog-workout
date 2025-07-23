@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:workouts_app/config/app_router.dart';
 
 void main() => runApp(const MyApp());
 
@@ -7,19 +8,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Workouts App',
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Workouts App'),
-        ),
-        body: const Center(
-          child: Center(
-            child: Text('Workouts App'),
-          ),
-        ),
-      ),
+      title: 'Frog Workouts',
+      routerConfig: appRouter,
     );
   }
 }
