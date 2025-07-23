@@ -11,6 +11,7 @@ class MainNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: selectedIndex,
+      selectedItemColor: Colors.blue,
       onTap: (value) {
         context.go(bottomRoutes[value].path);
       },
