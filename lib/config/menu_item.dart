@@ -60,3 +60,17 @@ final appMenuItems = <MenuItem>[
     widgetPage: ExerciseScreen(),
   ),
 ];
+
+final dynamicRoutes = [
+  GoRoute(
+    path: '/exercises/:id',
+    builder: (context, state) {
+      final id = state.pathParameters['id'];
+      if (id == null) {
+        return const Scaffold(body: Center(child: Text('No ID found')));
+      }
+
+      return ExerciseFormScreen(id: int.parse(id));
+    },
+  ),
+];
