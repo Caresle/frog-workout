@@ -39,19 +39,7 @@ class ExerciseItem extends StatelessWidget {
                 child: Column(
                   children: [
                     Text('Actions', style: TextStyle(fontSize: 16)),
-                    FilledButton.tonal(
-                      style: FilledButton.styleFrom(
-                        backgroundColor: Colors.red.shade200.withAlpha(40),
-                        foregroundColor: Colors.red.shade400,
-                      ),
-                      onPressed: () {},
-                      child: Row(
-                        children: [
-                          Icon(Icons.delete_rounded),
-                          Text('Delete Exercise'),
-                        ],
-                      ),
-                    ),
+                    _DeleteExercise(),
                   ],
                 ),
               ),
@@ -60,6 +48,46 @@ class ExerciseItem extends StatelessWidget {
         );
       },
       icon: Icon(Icons.more_horiz_rounded),
+    );
+  }
+}
+
+class _DeleteExercise extends StatelessWidget {
+  const _DeleteExercise();
+
+  @override
+  Widget build(BuildContext context) {
+    return FilledButton.tonal(
+      style: FilledButton.styleFrom(
+        backgroundColor: Colors.red.shade200.withAlpha(40),
+        foregroundColor: Colors.red.shade400,
+      ),
+      onPressed: () {
+        context.pop();
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            content: Text('Are you sure you want to delete this exercise?'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Cancel'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Delete'),
+              ),
+            ],
+          ),
+        );
+      },
+      child: Row(
+        children: [Icon(Icons.delete_rounded), Text('Delete Exercise')],
+      ),
     );
   }
 }

@@ -8,7 +8,23 @@ class ExerciseScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: generalAppBar(),
-      body: SafeArea(child: Text("Exercise screen")),
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              NewExerciseButton(),
+              const SizedBox(height: 16),
+              const Text(
+                'List of exercises',
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+              ),
+              ExerciseList(),
+            ],
+          ),
+        ),
+      ),
       bottomNavigationBar: MainNavigationBar(selectedIndex: 1),
     );
   }
