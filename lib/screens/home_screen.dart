@@ -9,11 +9,17 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: generalAppBar(),
       body: SafeArea(
-        child: Column(
-          children: [
-            const Text("Home screen"),
-            FilledButton(onPressed: () {}, child: Text('Start')),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              NewWorkoutButton(),
+              const Text("Workouts"),
+              const SizedBox(height: 16),
+              WorkoutsList(),
+            ],
+          ),
         ),
       ),
       bottomNavigationBar: MainNavigationBar(selectedIndex: 0),

@@ -73,4 +73,26 @@ final dynamicRoutes = [
       return ExerciseFormScreen(id: int.parse(id));
     },
   ),
+  GoRoute(
+    path: '/workouts/:id',
+    builder: (context, state) {
+      final id = state.pathParameters['id'];
+      if (id == null) {
+        return const Scaffold(body: Center(child: Text('No ID found')));
+      }
+
+      return WorkoutItemScreen(id: int.parse(id));
+    },
+  ),
+  GoRoute(
+    path: '/workouts/:id/start',
+    builder: (context, state) {
+      final id = state.pathParameters['id'];
+      if (id == null) {
+        return const Scaffold(body: Center(child: Text('No ID found')));
+      }
+
+      return WorkoutDisplayScreen(id: int.parse(id));
+    },
+  ),
 ];
