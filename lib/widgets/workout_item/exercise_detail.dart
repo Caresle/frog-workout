@@ -32,8 +32,16 @@ class ExerciseDetail extends StatelessWidget {
                 TableRow(
                   children: [
                     SetTypeDisplay(setType: SetType.failure),
-                    Text('10 Kg'),
-                    Text('10'),
+                    TextFormField(
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(border: InputBorder.none),
+                      initialValue: '10',
+                    ),
+                    TextFormField(
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(border: InputBorder.none),
+                      initialValue: '10',
+                    ),
                   ],
                 ),
                 TableRow(
