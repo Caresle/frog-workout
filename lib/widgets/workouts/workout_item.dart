@@ -21,19 +21,7 @@ class WorkoutItem extends StatelessWidget {
               children: [
                 Text('Workout description'),
                 const SizedBox(height: 8),
-                FilledButton(
-                  onPressed: () {
-                    context.push('/workouts/1/start');
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Icon(Icons.play_circle_rounded),
-                      const SizedBox(width: 8),
-                      Text('Start Workout'),
-                    ],
-                  ),
-                ),
+                StartWorkout(),
               ],
             ),
           ),

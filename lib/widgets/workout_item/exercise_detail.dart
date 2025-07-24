@@ -13,25 +13,50 @@ class ExerciseDetail extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ExerciseDetailRestTime(),
-            Row(
+            Table(
+              defaultVerticalAlignment: TableCellVerticalAlignment.middle,
               children: [
-                Text('Set'),
-                const SizedBox(width: 4),
-                Text('Weight'),
-                const SizedBox(width: 4),
-                Text('Reps'),
+                TableRow(
+                  children: [Text('Set Type'), Text('Weight'), Text('Reps')],
+                ),
+                TableRow(
+                  children: [
+                    SetTypeDisplay(setType: SetType.warmup),
+                    Text('10 Kg'),
+                    Text('10'),
+                  ],
+                ),
+                TableRow(
+                  children: [SetTypeDisplay(), Text('10 Kg'), Text('10')],
+                ),
+                TableRow(
+                  children: [
+                    SetTypeDisplay(setType: SetType.failure),
+                    Text('10 Kg'),
+                    Text('10'),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    SetTypeDisplay(setType: SetType.backoff),
+                    Text('10 Kg'),
+                    Text('10'),
+                  ],
+                ),
+                TableRow(
+                  children: [
+                    SetTypeDisplay(setType: SetType.top),
+                    Text('10 Kg'),
+                    Text('10'),
+                  ],
+                ),
               ],
             ),
-            Row(
-              children: [
-                Text('W'),
-                const SizedBox(width: 4),
-                Text('20'),
-                const SizedBox(width: 4),
-                Text('10'),
-              ],
-            ),
-            OutlinedButton(
+            const SizedBox(height: 16),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.blueGrey.shade900.withAlpha(20),
+              ),
               onPressed: () {},
               child: Row(
                 children: [
