@@ -20,3 +20,7 @@ export './workout_item/exercise_detail_rest_time.dart';
 export './workout_item/exercise_detail_header.dart';
 export './workout_item/exercises_list.dart';
 export './workout_item/exercise_detail.dart';
+
+// workout display
+export './workout_display/exercise_display_list.dart';
+export './workout_display/exercise_display_item.dart';
