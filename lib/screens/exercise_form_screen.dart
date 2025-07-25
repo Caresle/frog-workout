@@ -17,8 +17,35 @@ class _ExerciseFormScreenState extends State<ExerciseFormScreen> {
   final TextEditingController _nameController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+
+    if (widget.id == -1) {
+      return;
+    }
+
+    final exerciseProvider = Provider.of<ExerciseProvider>(
+      context,
+      listen: false,
+    );
+    final exercise = exerciseProvider.exercises.firstWhere(
+      (e) => e.id == widget.id,
+      orElse: () => Exercise(id: -1, name: '', weightType: WeightType.kg),
+    );
+
+    _nameController.text = exercise.name;
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final deviceSize = MediaQuery.of(context).size;
+    // final deviceSize = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         title: widget.id == -1
@@ -38,23 +65,28 @@ class _ExerciseFormScreenState extends State<ExerciseFormScreen> {
                 ),
               ),
               const SizedBox(height: 16),
-              DropdownMenu(
-                label: const Text('Unit'),
-                width: deviceSize.width - 16,
-                dropdownMenuEntries: [
-                  DropdownMenuEntry(label: 'KG', value: 'kg'),
-                  DropdownMenuEntry(label: 'LB', value: 'lb'),
-                ],
-              ),
+              // DropdownMenu(
+              //   label: const Text('Unit'),
+              //   width: deviceSize.width - 16,
+              //   dropdownMenuEntries: [
+              //     DropdownMenuEntry(label: 'KG', value: 'kg'),
+              //     DropdownMenuEntry(label: 'LB', value: 'lb'),
+              //   ],
+              // ),
               FilledButton.tonal(
                 onPressed: () async {
+                  final exerciseProvider = context.read<ExerciseProvider>();
                   final exercise = Exercise(
                     id: widget.id,
                     name: _nameController.text,
                     weightType: WeightType.kg,
                   );
 
-                  await context.read<ExerciseProvider>().create(exercise);
+                  final callback = widget.id == -1
+                      ? exerciseProvider.create
+                      : exerciseProvider.update;
+
+                  await callback(exercise);
 
                   if (!context.mounted) return;
 

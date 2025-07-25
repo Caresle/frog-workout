@@ -44,8 +44,10 @@ class ExerciseLocalDsImpl extends ExerciseLocalDs {
 
   @override
   Future<Exercise> update(Exercise exercise) {
-    exerciseList.remove(exercise);
+    exerciseList.removeWhere((e) => e.id == exercise.id);
     exerciseList.add(exercise);
+    exerciseList.sort((a, b) => a.id.compareTo(b.id));
+
     return Future.value(exercise);
   }
 }
