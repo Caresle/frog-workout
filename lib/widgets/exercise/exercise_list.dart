@@ -40,7 +40,9 @@ class ExerciseList extends StatelessWidget {
       child: ListView.builder(
         itemCount: providerExercise.exercises.length,
         itemBuilder: (context, index) {
-          return ExerciseItem();
+          final exercise = providerExercise.exercises[index];
+
+          return Provider.value(value: exercise, child: ExerciseItem());
         },
       ),
     );
