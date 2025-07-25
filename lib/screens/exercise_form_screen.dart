@@ -1,16 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:workouts_app/domain/domain.dart';
+import 'package:workouts_app/providers/providers.dart';
 
-class ExerciseFormScreen extends StatelessWidget {
+class ExerciseFormScreen extends StatefulWidget {
   final int id;
 
   const ExerciseFormScreen({super.key, required this.id});
+
+  @override
+  State<ExerciseFormScreen> createState() => _ExerciseFormScreenState();
+}
+
+class _ExerciseFormScreenState extends State<ExerciseFormScreen> {
+  final TextEditingController _nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: id == -1
+        title: widget.id == -1
             ? const Text('New exercise')
             : const Text('Edit exercise'),
       ),
@@ -20,6 +31,7 @@ class ExerciseFormScreen extends StatelessWidget {
           child: Column(
             children: [
               TextField(
+                controller: _nameController,
                 decoration: const InputDecoration(
                   labelText: 'Name',
                   border: OutlineInputBorder(),
@@ -35,7 +47,19 @@ class ExerciseFormScreen extends StatelessWidget {
                 ],
               ),
               FilledButton.tonal(
-                onPressed: () {},
+                onPressed: () async {
+                  final exercise = Exercise(
+                    id: widget.id,
+                    name: _nameController.text,
+                    weightType: WeightType.kg,
+                  );
+
+                  await context.read<ExerciseProvider>().create(exercise);
+
+                  if (!context.mounted) return;
+
+                  context.pop();
+                },
                 child: Row(
                   children: [
                     Icon(Icons.check_rounded),

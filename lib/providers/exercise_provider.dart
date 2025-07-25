@@ -20,6 +20,14 @@ class ExerciseProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> create(Exercise exercise) async {
+    _isLoading = true;
+    notifyListeners();
+    await _repository.create(exercise);
+    _isLoading = false;
+    notifyListeners();
+  }
+
   Future<void> delete(Exercise exercise) async {
     _isLoading = true;
     notifyListeners();
