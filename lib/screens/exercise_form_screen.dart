@@ -15,6 +15,7 @@ class ExerciseFormScreen extends StatefulWidget {
 
 class _ExerciseFormScreenState extends State<ExerciseFormScreen> {
   final TextEditingController _nameController = TextEditingController();
+  WeightType _weightType = WeightType.kg;
 
   @override
   void initState() {
@@ -34,17 +35,19 @@ class _ExerciseFormScreenState extends State<ExerciseFormScreen> {
     );
 
     _nameController.text = exercise.name;
+    _weightType = exercise.weightType;
   }
 
   @override
   void dispose() {
     _nameController.dispose();
+    _weightType = WeightType.kg;
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    // final deviceSize = MediaQuery.of(context).size;
+    final deviceSize = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: AppBar(
@@ -65,21 +68,26 @@ class _ExerciseFormScreenState extends State<ExerciseFormScreen> {
                 ),
               ),
               const SizedBox(height: 16),
-              // DropdownMenu(
-              //   label: const Text('Unit'),
-              //   width: deviceSize.width - 16,
-              //   dropdownMenuEntries: [
-              //     DropdownMenuEntry(label: 'KG', value: 'kg'),
-              //     DropdownMenuEntry(label: 'LB', value: 'lb'),
-              //   ],
-              // ),
+              DropdownMenu(
+                label: const Text('Unit'),
+                width: deviceSize.width - 16,
+                initialSelection: _weightType,
+                onSelected: (value) {
+                  if (value == null) return;
+                  setState(() => _weightType = value);
+                },
+                dropdownMenuEntries: [
+                  DropdownMenuEntry(label: 'KG', value: WeightType.kg),
+                  DropdownMenuEntry(label: 'LB', value: WeightType.lbs),
+                ],
+              ),
               FilledButton.tonal(
                 onPressed: () async {
                   final exerciseProvider = context.read<ExerciseProvider>();
                   final exercise = Exercise(
                     id: widget.id,
                     name: _nameController.text,
-                    weightType: WeightType.kg,
+                    weightType: _weightType,
                   );
 
                   final callback = widget.id == -1

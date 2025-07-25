@@ -20,12 +20,7 @@ class ExerciseItem extends StatelessWidget {
         },
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('${exercise.id}'),
-            Text('-'),
-            Text(exercise.name),
-            getActionsMenu(context, deviceSize),
-          ],
+          children: [Text(exercise.name), getActionsMenu(context, deviceSize)],
         ),
         subtitle: Row(
           children: [Chip(label: Text(exercise.weightType.name.toUpperCase()))],
