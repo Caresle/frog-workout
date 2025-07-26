@@ -9,6 +9,7 @@ export './exercise/exercise_list.dart';
 export './exercise/new_exercise_button.dart';
 export './exercise/exercise_item.dart';
 export './exercise/delete_exercise_button.dart';
+export './exercise/edit_exercise_button.dart';
 
 // workouts
 export './workouts/new_workout_button.dart';

@@ -21,7 +21,25 @@ class ExerciseItem extends StatelessWidget {
         },
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(exercise.name), getActionsMenu(context, deviceSize)],
+          children: [
+            Row(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(6),
+                    color: Colors.blueGrey.shade800,
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: Icon(Icons.fitness_center_rounded),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Text(exercise.name),
+              ],
+            ),
+            getActionsMenu(context, deviceSize),
+          ],
         ),
         subtitle: Row(
           children: [Chip(label: Text(exercise.weightType.name.toUpperCase()))],
@@ -48,6 +66,7 @@ class ExerciseItem extends StatelessWidget {
                   child: Column(
                     children: [
                       Text('Actions', style: TextStyle(fontSize: 16)),
+                      EditExerciseButton(exercise: exercise),
                       DeleteExerciseButton(
                         onConfirm: (BuildContext innerContext) {
                           if (innerContext.mounted) {
