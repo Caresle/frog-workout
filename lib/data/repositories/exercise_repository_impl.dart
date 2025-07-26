@@ -1,8 +1,8 @@
-import 'package:workouts_app/data/datasources/exercise_local_ds_impl.dart';
+import 'package:workouts_app/data/data.dart';
 import 'package:workouts_app/domain/domain.dart';
 
 class ExerciseRepositoryImpl extends ExerciseRepository {
-  final ExerciseLocalDsImpl _exerciseLocalDsImpl;
+  final ExerciseLocalDs _exerciseLocalDsImpl;
 
   ExerciseRepositoryImpl(this._exerciseLocalDsImpl);
 
