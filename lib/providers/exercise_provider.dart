@@ -47,10 +47,16 @@ class ExerciseProvider extends ChangeNotifier {
   }
 
   Future<void> delete(Exercise exercise) async {
-    _isLoading = true;
+    final previousExercises = List<Exercise>.from(_exercises);
+    _exercises.removeWhere((e) => e.id == exercise.id);
+
     notifyListeners();
-    await _repository.delete(exercise);
-    _isLoading = false;
-    notifyListeners();
+
+    try {
+      await _repository.delete(exercise);
+    } catch (e) {
+      _exercises = previousExercises;
+      notifyListeners();
+    }
   }
 }

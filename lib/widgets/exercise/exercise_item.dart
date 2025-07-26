@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:workouts_app/domain/domain.dart';
 import 'package:workouts_app/providers/providers.dart';
+import 'package:workouts_app/widgets/widgets.dart';
 
 class ExerciseItem extends StatelessWidget {
   const ExerciseItem({super.key});
@@ -47,7 +48,7 @@ class ExerciseItem extends StatelessWidget {
                   child: Column(
                     children: [
                       Text('Actions', style: TextStyle(fontSize: 16)),
-                      _DeleteExercise(
+                      DeleteExerciseButton(
                         onConfirm: (BuildContext innerContext) {
                           if (innerContext.mounted) {
                             innerContext.read<ExerciseProvider>().delete(
@@ -65,48 +66,6 @@ class ExerciseItem extends StatelessWidget {
           );
         },
         icon: Icon(Icons.more_horiz_rounded),
-      ),
-    );
-  }
-}
-
-class _DeleteExercise extends StatelessWidget {
-  final void Function(BuildContext innerContext) onConfirm;
-  const _DeleteExercise({required this.onConfirm});
-
-  @override
-  Widget build(BuildContext context) {
-    return FilledButton.tonal(
-      style: FilledButton.styleFrom(
-        backgroundColor: Colors.red.shade200.withAlpha(40),
-        foregroundColor: Colors.red.shade400,
-      ),
-      onPressed: () {
-        context.pop();
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            content: Text('Are you sure you want to delete this exercise?'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  // Navigator.of(context).pop();
-                },
-                child: Text('Cancel'),
-              ),
-              TextButton(
-                onPressed: () {
-                  onConfirm(context);
-                  // Navigator.of(context).pop();
-                },
-                child: Text('Delete'),
-              ),
-            ],
-          ),
-        );
-      },
-      child: Row(
-        children: [Icon(Icons.delete_rounded), Text('Delete Exercise')],
       ),
     );
   }
