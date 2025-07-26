@@ -91,14 +91,17 @@ class _ExerciseFormScreenState extends State<ExerciseFormScreen> {
                   );
 
                   final callback = widget.id == -1
-                      ? exerciseProvider.create
-                      : exerciseProvider.update;
+                      ? exerciseProvider.create(exercise)
+                      : exerciseProvider.update(exercise);
 
-                  await callback(exercise);
+                  // await callback(exercise);
 
                   if (!context.mounted) return;
-
                   context.pop();
+
+                  callback.catchError((error) {
+                    print(error);
+                  });
                 },
                 child: Row(
                   children: [

@@ -21,11 +21,21 @@ class ExerciseProvider extends ChangeNotifier {
   }
 
   Future<void> create(Exercise exercise) async {
-    _isLoading = true;
+    final previousExercise = List<Exercise>.from(_exercises);
+    _exercises.add(exercise);
+
     notifyListeners();
-    await _repository.create(exercise);
-    _isLoading = false;
-    notifyListeners();
+
+    try {
+      final created = await _repository.create(exercise);
+      final index = _exercises.indexWhere((e) => e.id == exercise.id);
+
+      _exercises[index] = created;
+      notifyListeners();
+    } catch (e) {
+      _exercises = previousExercise;
+      notifyListeners();
+    }
   }
 
   Future<void> update(Exercise exercise) async {
