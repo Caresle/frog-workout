@@ -10,6 +10,7 @@ class WorkoutItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final workout = context.watch<Workout>();
+    final totalExercises = workout.exercises.length;
     return Card(
       clipBehavior: Clip.hardEdge,
       child: Column(
@@ -23,6 +24,10 @@ class WorkoutItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Workout description'),
+                const SizedBox(height: 8),
+                totalExercises > 0
+                    ? Text('Total exercises: $totalExercises')
+                    : const SizedBox(),
                 const SizedBox(height: 8),
                 StartWorkout(),
               ],
