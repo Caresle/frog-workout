@@ -19,4 +19,17 @@ class WorkoutsProvider extends ChangeNotifier {
     _isLoading = false;
     notifyListeners();
   }
+
+  Future<void> create(Workout workout) async {
+    _isLoading = true;
+    notifyListeners();
+    await _repository.create(workout);
+    _isLoading = false;
+    notifyListeners();
+  }
+
+  Future<void> delete(Workout workout) async {
+    await _repository.delete(workout);
+    await getAll();
+  }
 }

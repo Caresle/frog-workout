@@ -38,9 +38,11 @@ class WorkoutsList extends StatelessWidget {
 
     return Flexible(
       child: ListView.builder(
-        itemCount: 6,
+        itemCount: workoutsProvider.workouts.length,
         itemBuilder: (context, index) {
-          return WorkoutItem();
+          final workout = workoutsProvider.workouts[index];
+
+          return Provider.value(value: workout, child: WorkoutItem());
         },
       ),
     );
