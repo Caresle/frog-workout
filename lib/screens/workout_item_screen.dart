@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:workouts_app/providers/providers.dart';
 import 'package:workouts_app/widgets/widgets.dart';
 
 class WorkoutItemScreen extends StatelessWidget {
@@ -9,55 +11,15 @@ class WorkoutItemScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
+    final workout = context.read<WorkoutsProvider>().workouts.firstWhere(
+      (w) => w.id == id,
+    );
+    final isValidWorkout = workout.exercises.isNotEmpty;
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Workout $id'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (context) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: deviceSize.width,
-                      height: deviceSize.height * 0.4,
-                      child: Column(
-                        children: [
-                          const Text('Actions'),
-                          const SizedBox(height: 16),
-                          FilledButton.tonal(
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                Icon(Icons.copy_rounded),
-                                const SizedBox(width: 8),
-                                Text('Duplicate Workout'),
-                              ],
-                            ),
-                          ),
-                          FilledButton.tonal(
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                Icon(Icons.delete_rounded),
-                                const SizedBox(width: 8),
-                                Text('Delete Workout'),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              );
-            },
-            icon: const Icon(Icons.more_horiz_rounded),
-          ),
-        ],
+        actions: [getTopActions(context, deviceSize)],
       ),
       body: SafeArea(
         child: Padding(
@@ -65,11 +27,9 @@ class WorkoutItemScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              StartWorkout(),
+              isValidWorkout ? StartWorkout() : const SizedBox(),
               const SizedBox(height: 16),
-              Text('Exercises'),
-              const SizedBox(height: 16),
-              ExercisesList(),
+              ExercisesList(workout: workout),
               FilledButton.tonal(
                 onPressed: () {},
                 child: Row(
@@ -84,6 +44,52 @@ class WorkoutItemScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  IconButton getTopActions(BuildContext context, Size deviceSize) {
+    return IconButton(
+      onPressed: () {
+        showModalBottomSheet(
+          context: context,
+          builder: (context) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: deviceSize.width,
+                height: deviceSize.height * 0.4,
+                child: Column(
+                  children: [
+                    const Text('Actions'),
+                    const SizedBox(height: 16),
+                    FilledButton.tonal(
+                      onPressed: () {},
+                      child: Row(
+                        children: [
+                          Icon(Icons.copy_rounded),
+                          const SizedBox(width: 8),
+                          Text('Duplicate Workout'),
+                        ],
+                      ),
+                    ),
+                    FilledButton.tonal(
+                      onPressed: () {},
+                      child: Row(
+                        children: [
+                          Icon(Icons.delete_rounded),
+                          const SizedBox(width: 8),
+                          Text('Delete Workout'),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+      icon: const Icon(Icons.more_horiz_rounded),
     );
   }
 }

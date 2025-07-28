@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:workouts_app/domain/domain.dart';
 
 class ExerciseDetailHeader extends StatelessWidget {
-  const ExerciseDetailHeader({super.key});
+  final Exercise exercise;
+
+  const ExerciseDetailHeader({super.key, required this.exercise});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +17,7 @@ class ExerciseDetailHeader extends StatelessWidget {
           children: [
             const Icon(Icons.fitness_center_rounded),
             const SizedBox(width: 8),
-            Text('Exercise'),
+            Text(exercise.name),
           ],
         ),
         IconButton(

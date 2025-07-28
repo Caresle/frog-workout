@@ -1,14 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:workouts_app/config/theme/theme.dart';
+import 'package:workouts_app/domain/domain.dart';
+import 'package:workouts_app/models/models.dart';
 import 'package:workouts_app/widgets/widgets.dart';
 
 class ExerciseDetail extends StatelessWidget {
   const ExerciseDetail({super.key});
 
+  Widget getWeightDisplay(Exercise exercise) {
+    final text = exercise.weightType == WeightType.kg ? 'Kg' : 'Lbs';
+
+    return Row(
+      children: [
+        Icon(Icons.fitness_center_rounded, size: 16),
+        const SizedBox(width: 3),
+        Text(text),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    final (exercise, details) = context.read<WorkoutItemUI>();
+
     return Card(
       child: ListTile(
-        title: ExerciseDetailHeader(),
+        title: ExerciseDetailHeader(exercise: exercise),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -17,54 +35,26 @@ class ExerciseDetail extends StatelessWidget {
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,
               children: [
                 TableRow(
-                  children: [Text('Set Type'), Text('Weight'), Text('Reps')],
-                ),
-                TableRow(
                   children: [
-                    SetTypeDisplay(setType: SetType.warmup),
-                    Text('10 Kg'),
-                    Text('10'),
+                    Text('Set Type'),
+                    getWeightDisplay(exercise),
+                    Text('Reps'),
                   ],
                 ),
-                TableRow(
-                  children: [SetTypeDisplay(), Text('10 Kg'), Text('10')],
-                ),
-                TableRow(
-                  children: [
-                    SetTypeDisplay(setType: SetType.failure),
-                    TextFormField(
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(border: InputBorder.none),
-                      initialValue: '10',
-                    ),
-                    TextFormField(
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(border: InputBorder.none),
-                      initialValue: '10',
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    SetTypeDisplay(setType: SetType.backoff),
-                    Text('10 Kg'),
-                    Text('10'),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    SetTypeDisplay(setType: SetType.top),
-                    Text('10 Kg'),
-                    Text('10'),
-                  ],
+                ...details.map(
+                  (detail) => TableRow(
+                    children: [
+                      SetTypeDisplay(setType: detail.setType),
+                      Text('${detail.weight}'),
+                      Text('${detail.reps}'),
+                    ],
+                  ),
                 ),
               ],
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueGrey.shade900.withAlpha(20),
-              ),
+              style: AppStyle.elevatedButtonSecondary,
               onPressed: () {},
               child: Row(
                 children: [
