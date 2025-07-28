@@ -6,14 +6,22 @@ List<Workout> workoutList = [];
 class WorkoutLocalDsImpl extends WorkoutLocalDs {
   @override
   Future<Workout> create(Workout workout) {
-    // TODO: implement create
-    throw UnimplementedError();
+    final emptyWorkout = Workout(id: 0, name: '', createdAt: DateTime(2025));
+
+    final maxId = workoutList
+        .fold(emptyWorkout, (curr, next) => curr.id > next.id ? curr : next)
+        .id;
+
+    final newWorkout = workout.copyWith(id: maxId + 1);
+    workoutList.add(newWorkout);
+
+    return Future.value(workout);
   }
 
   @override
   Future<Workout> delete(Workout workout) {
-    // TODO: implement delete
-    throw UnimplementedError();
+    workoutList.removeWhere((w) => w.id == workout.id);
+    return Future.value(workout);
   }
 
   @override
@@ -23,8 +31,9 @@ class WorkoutLocalDsImpl extends WorkoutLocalDs {
   }
 
   @override
-  Future<Workout> update(Workout workout) {
-    // TODO: implement update
-    throw UnimplementedError();
+  Future<Workout> update(Workout workout) async {
+    final index = workoutList.indexWhere((w) => w.id == workout.id);
+    workoutList[index] = workout;
+    return Future.value(workout);
   }
 }
