@@ -1,0 +1,22 @@
+import 'package:flutter/material.dart';
+import 'package:workouts_app/domain/domain.dart';
+
+class WorkoutsProvider extends ChangeNotifier {
+  final WorkoutRepository _repository;
+
+  WorkoutsProvider(this._repository);
+
+  List<Workout> _workouts = [];
+  bool _isLoading = false;
+
+  List<Workout> get workouts => _workouts;
+  bool get isLoading => _isLoading;
+
+  Future<void> getAll() async {
+    _isLoading = true;
+    notifyListeners();
+    _workouts = await _repository.getAll();
+    _isLoading = false;
+    notifyListeners();
+  }
+}
