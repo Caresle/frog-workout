@@ -15,6 +15,16 @@ class Exercise {
     this.idUser,
   });
 
+  factory Exercise.empty() {
+    return Exercise(
+      id: 0,
+      name: '',
+      weightType: WeightType.kg,
+      customCreated: true,
+      idUser: 0,
+    );
+  }
+
   Exercise copyWith({
     int? id,
     String? name,
