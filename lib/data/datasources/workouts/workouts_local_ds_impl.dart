@@ -1,7 +1,29 @@
 import 'package:workouts_app/data/data.dart';
-import 'package:workouts_app/domain/entities/workout_entity.dart';
+import 'package:workouts_app/domain/domain.dart';
+import 'package:workouts_app/widgets/widgets.dart';
 
-List<Workout> workoutList = [];
+List<Workout> workoutList = [
+  Workout(id: 1, name: 'Push / Pull', createdAt: DateTime(2025)),
+  Workout(
+    id: 2,
+    name: 'Leg',
+    createdAt: DateTime(2025),
+    exercises: [
+      Exercise(id: 1, name: 'Squat', weightType: WeightType.kg),
+      Exercise(id: 2, name: 'Deadlift', weightType: WeightType.kg),
+    ],
+    details: [
+      WorkoutDetail(
+        id: 1,
+        idWorkout: 2,
+        idExercise: 1,
+        setType: SetType.warmup,
+      ),
+      WorkoutDetail(id: 2, idWorkout: 2, idExercise: 1, weight: 10, reps: 10),
+      WorkoutDetail(id: 3, idWorkout: 2, idExercise: 1),
+    ],
+  ),
+];
 
 class WorkoutLocalDsImpl extends WorkoutLocalDs {
   @override

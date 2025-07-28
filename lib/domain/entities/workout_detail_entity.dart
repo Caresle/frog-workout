@@ -1,10 +1,12 @@
 import 'package:workouts_app/domain/domain.dart';
+import 'package:workouts_app/widgets/widgets.dart';
 
 class WorkoutDetail {
   final int id;
   final int idWorkout;
   final int idExercise;
   final int? setIndex;
+  final SetType setType;
   final int restTime;
   final double weight;
   final double reps;
@@ -19,7 +21,15 @@ class WorkoutDetail {
     this.weight = 0,
     this.reps = 0,
     this.notes,
+    this.setType = SetType.normal,
   });
+
+  factory WorkoutDetail.empty() => WorkoutDetail(
+    id: 0,
+    idWorkout: 0,
+    idExercise: 0,
+    setType: SetType.normal,
+  );
 
   WorkoutDetail copyWith({
     int? id,

@@ -20,4 +20,8 @@ class AppStyle {
     foregroundColor: Colors.white,
     backgroundColor: Colors.red.shade500,
   );
+
+  static final ButtonStyle elevatedButtonSecondary = ElevatedButton.styleFrom(
+    backgroundColor: Colors.blueGrey.shade900.withAlpha(20),
+  );
 }
