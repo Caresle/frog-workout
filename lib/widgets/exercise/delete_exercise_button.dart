@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:workouts_app/config/theme/theme.dart';
 
 class DeleteExerciseButton extends StatelessWidget {
   final void Function(BuildContext innerContext) onConfirm;
@@ -9,10 +10,7 @@ class DeleteExerciseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FilledButton.tonal(
-      style: FilledButton.styleFrom(
-        backgroundColor: Colors.red.shade200.withAlpha(40),
-        foregroundColor: Colors.red.shade400,
-      ),
+      style: AppStyle.filledDangerGhost,
       onPressed: () {
         context.pop();
         showDialog(

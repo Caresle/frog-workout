@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:workouts_app/config/theme/theme.dart';
 import 'package:workouts_app/widgets/widgets.dart';
 
 class ExerciseDisplayItem extends StatelessWidget {
@@ -92,10 +93,7 @@ class _Header extends StatelessWidget {
                     child: Column(
                       children: [
                         FilledButton(
-                          style: FilledButton.styleFrom(
-                            backgroundColor: Colors.red.shade900.withAlpha(30),
-                            foregroundColor: Colors.red.shade500,
-                          ),
+                          style: AppStyle.filledDangerHighGhost,
                           onPressed: () {},
                           child: Row(
                             children: [
