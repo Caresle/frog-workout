@@ -5,4 +5,7 @@ abstract class WorkoutRepository {
   Future<Workout> create(Workout workout);
   Future<Workout> update(Workout workout);
   Future<Workout> delete(Workout workout);
+
+  // Workout detail
+  Future<void> addExercise(int workoutId, List<Exercise> exercises);
 }
