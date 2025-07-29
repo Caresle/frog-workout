@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:workouts_app/domain/domain.dart';
 
 class ExerciseSelectItem extends StatelessWidget {
   final bool isSelected;
   final void Function()? onTap;
+  final Exercise exercise;
 
-  const ExerciseSelectItem({super.key, this.isSelected = false, this.onTap});
+  const ExerciseSelectItem({
+    super.key,
+    this.isSelected = false,
+    this.onTap,
+    required this.exercise,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +38,7 @@ class ExerciseSelectItem extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
-            Text('Exercise 1'),
+            Text(exercise.name),
           ],
         ),
       ),

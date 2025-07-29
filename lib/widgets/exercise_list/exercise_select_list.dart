@@ -1,4 +1,8 @@
+import 'dart:collection';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:workouts_app/domain/domain.dart';
+import 'package:workouts_app/providers/providers.dart';
 import 'package:workouts_app/widgets/widgets.dart';
 
 class ExerciseSelectList extends StatefulWidget {
@@ -9,33 +13,58 @@ class ExerciseSelectList extends StatefulWidget {
 }
 
 class ExerciseSelectListState extends State<ExerciseSelectList> {
-  Set<int> selectedExercises = {};
+  bool _isInit = false;
 
-  void _onTap(int index) {
-    if (selectedExercises.contains(index)) {
-      selectedExercises.remove(index);
+  HashMap<int, Exercise> selectedExercises = HashMap();
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_isInit) return;
+
+    _isInit = true;
+    Future.microtask(() {
+      if (!mounted) return;
+
+      final provider = Provider.of<ExerciseProvider>(context, listen: false);
+      provider.getAll();
+    });
+  }
+
+  void _onTap(int id, Exercise exercise) {
+    if (selectedExercises.containsKey(id)) {
+      selectedExercises.remove(id);
       setState(() {});
       return;
     }
 
-    selectedExercises.add(index);
+    selectedExercises[id] = exercise;
     setState(() {});
   }
 
-  Set<int> getSelectedExercises() {
-    return selectedExercises;
+  List<Exercise> getSelectedExercises() {
+    return List.from(selectedExercises.values);
   }
 
   @override
   Widget build(BuildContext context) {
+    final exercisesProvider = context.watch<ExerciseProvider>();
+
+    if (exercisesProvider.isLoading) {
+      return Flexible(child: const Center(child: CircularProgressIndicator()));
+    }
+
     return Flexible(
       child: ListView.builder(
-        itemCount: 3,
+        itemCount: exercisesProvider.exercises.length,
         itemBuilder: (context, index) {
-          final selected = selectedExercises.contains(index);
+          final exercise = exercisesProvider.exercises[index];
+          final selected = selectedExercises.containsKey(exercise.id);
+
           return ExerciseSelectItem(
             isSelected: selected,
-            onTap: () => _onTap(index),
+            onTap: () => _onTap(exercise.id, exercise),
+            exercise: exercise,
           );
         },
       ),

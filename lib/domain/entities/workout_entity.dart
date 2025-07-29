@@ -1,3 +1,4 @@
+import 'package:workouts_app/constants/app_constants.dart';
 import 'package:workouts_app/domain/domain.dart';
 
 class Workout {
@@ -18,6 +19,9 @@ class Workout {
     this.exercises = const <Exercise>[],
     this.details = const <WorkoutDetail>[],
   });
+
+  factory Workout.empty() =>
+      Workout(id: AppConstants.newItemId, name: '', createdAt: DateTime(2025));
 
   Workout copyWith({
     int? id,

@@ -14,11 +14,12 @@ class WorkoutItemScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-    final workout = context.read<WorkoutsProvider>().workouts.firstWhere(
+    final workout = context.watch<WorkoutsProvider>().workouts.firstWhere(
       (w) => w.id == id,
       orElse: () => Workout.empty(),
     );
-    final isValidWorkout = workout.exercises.isNotEmpty;
+    final isValidWorkout =
+        workout.id != AppConstants.newItemId && workout.exercises.isNotEmpty;
 
     return Scaffold(
       appBar: AppBar(
@@ -38,7 +39,7 @@ class WorkoutItemScreen extends StatelessWidget {
               ExercisesList(workout: workout),
               FilledButton.tonal(
                 onPressed: () {
-                  context.push('/exercises/list');
+                  context.push('/exercises/list/${workout.id}');
                 },
                 child: Row(
                   children: [
