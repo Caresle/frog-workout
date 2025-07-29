@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:workouts_app/constants/app_constants.dart';
 
 class NewWorkoutButton extends StatelessWidget {
   const NewWorkoutButton({super.key});
@@ -8,7 +9,7 @@ class NewWorkoutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FilledButton.tonal(
       onPressed: () {
-        context.push('/workouts/-1');
+        context.push('/workouts/${AppConstants.newItemId}');
       },
       child: Row(
         children: [

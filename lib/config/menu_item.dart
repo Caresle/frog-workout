@@ -59,6 +59,12 @@ final appMenuItems = <MenuItem>[
     isBottom: true,
     widgetPage: ExerciseScreen(),
   ),
+  MenuItem(
+    name: "Exercises List",
+    path: '/exercises/list',
+    icon: Icons.list_rounded,
+    widgetPage: ExerciseListScreen(),
+  ),
 ];
 
 final dynamicRoutes = [

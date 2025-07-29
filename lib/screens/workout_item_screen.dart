@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+import 'package:workouts_app/constants/app_constants.dart';
+import 'package:workouts_app/domain/domain.dart';
 import 'package:workouts_app/providers/providers.dart';
 import 'package:workouts_app/widgets/widgets.dart';
 
@@ -13,12 +16,15 @@ class WorkoutItemScreen extends StatelessWidget {
     final deviceSize = MediaQuery.of(context).size;
     final workout = context.read<WorkoutsProvider>().workouts.firstWhere(
       (w) => w.id == id,
+      orElse: () => Workout.empty(),
     );
     final isValidWorkout = workout.exercises.isNotEmpty;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Workout $id'),
+        title: id == AppConstants.newItemId
+            ? Text('New workout')
+            : Text('Workout $id'),
         actions: [getTopActions(context, deviceSize)],
       ),
       body: SafeArea(
@@ -31,7 +37,9 @@ class WorkoutItemScreen extends StatelessWidget {
               const SizedBox(height: 16),
               ExercisesList(workout: workout),
               FilledButton.tonal(
-                onPressed: () {},
+                onPressed: () {
+                  context.push('/exercises/list');
+                },
                 child: Row(
                   children: [
                     Icon(Icons.add_rounded),
@@ -47,7 +55,14 @@ class WorkoutItemScreen extends StatelessWidget {
     );
   }
 
-  IconButton getTopActions(BuildContext context, Size deviceSize) {
+  Widget getTopActions(BuildContext context, Size deviceSize) {
+    if (id == AppConstants.newItemId) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: FilledButton(onPressed: () {}, child: Text('Save')),
+      );
+    }
+
     return IconButton(
       onPressed: () {
         showModalBottomSheet(
