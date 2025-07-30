@@ -41,6 +41,7 @@ class WorkoutDetail {
     double? reps,
     String? notes,
     Exercise? exercise,
+    SetType? setType,
   }) {
     return WorkoutDetail(
       id: id ?? this.id,
@@ -51,6 +52,7 @@ class WorkoutDetail {
       weight: weight ?? this.weight,
       reps: reps ?? this.reps,
       notes: notes ?? this.notes,
+      setType: setType ?? this.setType,
     );
   }
 }

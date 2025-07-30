@@ -26,7 +26,8 @@ class ExerciseDisplayItem extends StatelessWidget {
                 ),
                 TableRow(
                   children: [
-                    SetTypeDisplay(),
+                    Text('SET TYPE'),
+                    // SetTypeDisplay(),
                     Text('10', textAlign: TextAlign.center),
                     Text('20', textAlign: TextAlign.center),
                     Checkbox(value: true, onChanged: (_) {}),

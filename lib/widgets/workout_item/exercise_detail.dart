@@ -46,7 +46,7 @@ class ExerciseDetail extends StatelessWidget {
                 ...details.map(
                   (detail) => TableRow(
                     children: [
-                      SetTypeDisplay(setType: detail.setType),
+                      SetTypeDisplay(setType: detail.setType, detail: detail),
                       Text('${detail.weight}'),
                       Text('${detail.reps}'),
                     ],

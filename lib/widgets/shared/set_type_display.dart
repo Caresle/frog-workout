@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:workouts_app/domain/domain.dart';
+import 'package:workouts_app/providers/providers.dart';
 
 enum SetType { warmup, normal, backoff, top, failure }
 
@@ -27,9 +30,14 @@ SetTypeData getSetTypeData(SetType setType) {
 }
 
 class SetTypeDisplay extends StatelessWidget {
+  final WorkoutDetail detail;
   final SetType setType;
 
-  const SetTypeDisplay({super.key, this.setType = SetType.normal});
+  const SetTypeDisplay({
+    super.key,
+    this.setType = SetType.normal,
+    required this.detail,
+  });
 
   TextStyle getTextTypeStyle() {
     final data = getSetTypeData(setType);
@@ -55,7 +63,7 @@ class SetTypeDisplay extends StatelessWidget {
                   children: [
                     const Text('Set Type'),
                     const SizedBox(height: 16),
-                    _SetTypeList(),
+                    _SetTypeList(detail: detail),
                   ],
                 ),
               ),
@@ -69,7 +77,9 @@ class SetTypeDisplay extends StatelessWidget {
 }
 
 class _SetTypeList extends StatelessWidget {
-  const _SetTypeList();
+  final WorkoutDetail detail;
+
+  const _SetTypeList({required this.detail});
 
   ButtonStyle getStyle(SetType setType) {
     final data = getSetTypeData(setType);
@@ -87,7 +97,13 @@ class _SetTypeList extends StatelessWidget {
         ...setTypeList.map(
           (setType) => FilledButton.tonal(
             style: getStyle(setType.type),
-            onPressed: () {},
+            onPressed: () async {
+              final newDetail = detail.copyWith(setType: setType.type);
+              await context.read<WorkoutsProvider>().updateSet(newDetail);
+
+              if (!context.mounted) return;
+              Navigator.of(context).pop();
+            },
             child: Row(
               children: [
                 Text(setType.name.substring(0, 1).toUpperCase()),
