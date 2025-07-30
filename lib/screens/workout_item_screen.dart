@@ -23,6 +23,17 @@ class WorkoutItemScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () async {
+            if (id == AppConstants.newItemId) {
+              await context.read<WorkoutsProvider>().delete(workout);
+              if (!context.mounted) return;
+            }
+
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_rounded),
+        ),
         title: id == AppConstants.newItemId
             ? Text('New workout')
             : Text('Workout $id'),
