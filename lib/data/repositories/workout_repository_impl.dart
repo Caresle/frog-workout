@@ -25,4 +25,28 @@ class WorkoutRepositoryImpl extends WorkoutRepository {
   Future<Workout> update(Workout workout) {
     return _workoutLocalDsImpl.update(workout);
   }
+
+  @override
+  Future<void> addExercise(int workoutId, List<Exercise> exercises) {
+    return _workoutLocalDsImpl.addExercise(workoutId, exercises);
+  }
+
+  @override
+  Future<void> removeExercise(int workoutId, List<Exercise> exercises) {
+    return _workoutLocalDsImpl.removeExercise(workoutId, exercises);
+  }
+
+  @override
+  Future<void> addSet(
+    int workoutId,
+    int exerciseId,
+    List<WorkoutDetail> details,
+  ) {
+    return _workoutLocalDsImpl.addSet(workoutId, exerciseId, details);
+  }
+
+  @override
+  Future<void> updateSet(WorkoutDetail detail) {
+    return _workoutLocalDsImpl.updateSet(detail);
+  }
 }

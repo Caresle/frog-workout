@@ -11,6 +11,10 @@ export './exercise/exercise_item.dart';
 export './exercise/delete_exercise_button.dart';
 export './exercise/edit_exercise_button.dart';
 
+// exercises list
+export './exercise_list/exercise_select_list.dart';
+export './exercise_list/exercise_select_item.dart';
+
 // workouts
 export './workouts/new_workout_button.dart';
 export './workouts/workouts_list.dart';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:workouts_app/config/theme/theme.dart';
 import 'package:workouts_app/domain/domain.dart';
 
 class EditExerciseButton extends StatelessWidget {
@@ -9,10 +10,7 @@ class EditExerciseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FilledButton.tonal(
-      style: FilledButton.styleFrom(
-        backgroundColor: Colors.blueGrey.shade200.withAlpha(40),
-        foregroundColor: Colors.blueGrey.shade400,
-      ),
+      style: AppStyle.filledSecondaryGhost,
       onPressed: () {
         context.push('/exercises/${exercise.id}');
       },

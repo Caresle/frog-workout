@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:workouts_app/constants/app_constants.dart';
+import 'package:workouts_app/domain/domain.dart';
+import 'package:workouts_app/providers/providers.dart';
 import 'package:workouts_app/widgets/widgets.dart';
 
 class WorkoutItemScreen extends StatelessWidget {
@@ -9,55 +14,30 @@ class WorkoutItemScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
+    final workout = context.watch<WorkoutsProvider>().workouts.firstWhere(
+      (w) => w.id == id,
+      orElse: () => Workout.empty(),
+    );
+    final isValidWorkout =
+        workout.id != AppConstants.newItemId && workout.exercises.isNotEmpty;
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Workout $id'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                builder: (context) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: deviceSize.width,
-                      height: deviceSize.height * 0.4,
-                      child: Column(
-                        children: [
-                          const Text('Actions'),
-                          const SizedBox(height: 16),
-                          FilledButton.tonal(
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                Icon(Icons.copy_rounded),
-                                const SizedBox(width: 8),
-                                Text('Duplicate Workout'),
-                              ],
-                            ),
-                          ),
-                          FilledButton.tonal(
-                            onPressed: () {},
-                            child: Row(
-                              children: [
-                                Icon(Icons.delete_rounded),
-                                const SizedBox(width: 8),
-                                Text('Delete Workout'),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              );
-            },
-            icon: const Icon(Icons.more_horiz_rounded),
-          ),
-        ],
+        leading: IconButton(
+          onPressed: () async {
+            if (id == AppConstants.newItemId) {
+              await context.read<WorkoutsProvider>().delete(workout);
+              if (!context.mounted) return;
+            }
+
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.arrow_back_rounded),
+        ),
+        title: id == AppConstants.newItemId
+            ? Text('New workout')
+            : Text('Workout $id'),
+        actions: [getTopActions(context, deviceSize)],
       ),
       body: SafeArea(
         child: Padding(
@@ -65,13 +45,13 @@ class WorkoutItemScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              StartWorkout(),
+              isValidWorkout ? StartWorkout() : const SizedBox(),
               const SizedBox(height: 16),
-              Text('Exercises'),
-              const SizedBox(height: 16),
-              ExercisesList(),
+              ExercisesList(workout: workout),
               FilledButton.tonal(
-                onPressed: () {},
+                onPressed: () {
+                  context.push('/exercises/list/${workout.id}');
+                },
                 child: Row(
                   children: [
                     Icon(Icons.add_rounded),
@@ -84,6 +64,67 @@ class WorkoutItemScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  Widget getTopActions(BuildContext context, Size deviceSize) {
+    if (id == AppConstants.newItemId) {
+      return Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: FilledButton(
+          onPressed: () {
+            final details = context.read<WorkoutsProvider>().details;
+            for (final detail in details) {
+              print(detail.weight);
+            }
+          },
+          child: Text('Save'),
+        ),
+      );
+    }
+
+    return IconButton(
+      onPressed: () {
+        showModalBottomSheet(
+          context: context,
+          builder: (context) {
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: deviceSize.width,
+                height: deviceSize.height * 0.4,
+                child: Column(
+                  children: [
+                    const Text('Actions'),
+                    const SizedBox(height: 16),
+                    FilledButton.tonal(
+                      onPressed: () {},
+                      child: Row(
+                        children: [
+                          Icon(Icons.copy_rounded),
+                          const SizedBox(width: 8),
+                          Text('Duplicate Workout'),
+                        ],
+                      ),
+                    ),
+                    FilledButton.tonal(
+                      onPressed: () {},
+                      child: Row(
+                        children: [
+                          Icon(Icons.delete_rounded),
+                          const SizedBox(width: 8),
+                          Text('Delete Workout'),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
+      icon: const Icon(Icons.more_horiz_rounded),
     );
   }
 }

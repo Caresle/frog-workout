@@ -95,4 +95,15 @@ final dynamicRoutes = [
       return WorkoutDisplayScreen(id: int.parse(id));
     },
   ),
+  GoRoute(
+    path: '/exercises/list/:id',
+    builder: (context, state) {
+      final id = state.pathParameters['id'];
+      if (id == null) {
+        return const Scaffold(body: Center(child: Text('No ID found')));
+      }
+
+      return ExerciseListScreen(id: int.parse(id));
+    },
+  ),
 ];

@@ -1,71 +1,121 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:workouts_app/config/theme/theme.dart';
+import 'package:workouts_app/constants/app_constants.dart';
+import 'package:workouts_app/domain/domain.dart';
+import 'package:workouts_app/models/models.dart';
+import 'package:workouts_app/providers/providers.dart';
 import 'package:workouts_app/widgets/widgets.dart';
 
-class ExerciseDetail extends StatelessWidget {
+/// Widget used to display the details of an exercise inside a workout
+/// and to allow the user to edit the exercise's details.
+class ExerciseDetail extends StatefulWidget {
   const ExerciseDetail({super.key});
 
   @override
+  State<ExerciseDetail> createState() => ExerciseDetailState();
+}
+
+class ExerciseDetailState extends State<ExerciseDetail> {
+  List<WorkoutDetail> editableDetails = [];
+
+  @override
+  void initState() {
+    super.initState();
+    final (_, _, details) = context.read<WorkoutItemUI>();
+    editableDetails = List.from(details);
+  }
+
+  Widget getWeightDisplay(Exercise exercise) {
+    final text = exercise.weightType == WeightType.kg ? 'Kg' : 'Lbs';
+
+    return Row(
+      children: [
+        Icon(Icons.fitness_center_rounded, size: 16),
+        const SizedBox(width: 3),
+        Text(text),
+      ],
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final (workout, exercise, details) = context.read<WorkoutItemUI>();
+
     return Card(
       child: ListTile(
-        title: ExerciseDetailHeader(),
+        title: ExerciseDetailHeader(exercise: exercise),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ExerciseDetailRestTime(),
             Table(
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+
               children: [
                 TableRow(
-                  children: [Text('Set Type'), Text('Weight'), Text('Reps')],
-                ),
-                TableRow(
                   children: [
-                    SetTypeDisplay(setType: SetType.warmup),
-                    Text('10 Kg'),
-                    Text('10'),
+                    Text('Set Type'),
+                    getWeightDisplay(exercise),
+                    Text('Reps'),
                   ],
                 ),
-                TableRow(
-                  children: [SetTypeDisplay(), Text('10 Kg'), Text('10')],
-                ),
-                TableRow(
-                  children: [
-                    SetTypeDisplay(setType: SetType.failure),
-                    TextFormField(
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(border: InputBorder.none),
-                      initialValue: '10',
-                    ),
-                    TextFormField(
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(border: InputBorder.none),
-                      initialValue: '10',
-                    ),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    SetTypeDisplay(setType: SetType.backoff),
-                    Text('10 Kg'),
-                    Text('10'),
-                  ],
-                ),
-                TableRow(
-                  children: [
-                    SetTypeDisplay(setType: SetType.top),
-                    Text('10 Kg'),
-                    Text('10'),
-                  ],
-                ),
+                ...editableDetails.asMap().entries.map((entry) {
+                  final index = entry.key;
+                  final detail = entry.value;
+                  return TableRow(
+                    children: [
+                      SetTypeDisplay(setType: detail.setType, detail: detail),
+                      TextFormField(
+                        onChanged: (value) {
+                          final parsed = double.tryParse(value);
+
+                          if (parsed == null) return;
+
+                          editableDetails[index] = detail.copyWith(
+                            weight: parsed,
+                          );
+
+                          context.read<WorkoutsProvider>().updateWorkoutDetails(
+                            editableDetails,
+                          );
+                          setState(() {});
+                        },
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                            RegExp(r'^\d+\.?\d{0,2}'),
+                          ),
+                        ],
+                        decoration: InputDecoration(border: InputBorder.none),
+                        initialValue: detail.weight.toString(),
+                        keyboardType: TextInputType.number,
+                      ),
+                      Text('${detail.reps}'),
+                    ],
+                  );
+                }),
               ],
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blueGrey.shade900.withAlpha(20),
-              ),
-              onPressed: () {},
+              style: AppStyle.elevatedButtonSecondary,
+              onPressed: () async {
+                final WorkoutDetail detail = WorkoutDetail(
+                  id: AppConstants.newItemId,
+                  idWorkout: workout.id,
+                  idExercise: exercise.id,
+                );
+
+                await context.read<WorkoutsProvider>().addSet(
+                  workout.id,
+                  exercise.id,
+                  [detail],
+                );
+
+                editableDetails.add(detail);
+                setState(() {});
+              },
               child: Row(
                 children: [
                   Icon(Icons.add_rounded),

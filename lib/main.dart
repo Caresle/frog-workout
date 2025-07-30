@@ -14,6 +14,11 @@ void main() => runApp(
           );
         },
       ),
+      ChangeNotifierProvider(
+        create: (_) {
+          return WorkoutsProvider(WorkoutRepositoryImpl(WorkoutLocalDsImpl()));
+        },
+      ),
     ],
     child: MyApp(),
   ),

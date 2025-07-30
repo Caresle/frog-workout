@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:workouts_app/domain/domain.dart';
+import 'package:workouts_app/models/models.dart';
+import 'package:workouts_app/providers/workouts_provider.dart';
 
 class ExerciseDetailHeader extends StatelessWidget {
-  const ExerciseDetailHeader({super.key});
+  final Exercise exercise;
+
+  const ExerciseDetailHeader({super.key, required this.exercise});
 
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
+    final (workout, _, _) = context.read<WorkoutItemUI>();
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -14,7 +21,7 @@ class ExerciseDetailHeader extends StatelessWidget {
           children: [
             const Icon(Icons.fitness_center_rounded),
             const SizedBox(width: 8),
-            Text('Exercise'),
+            Text(exercise.name),
           ],
         ),
         IconButton(
@@ -52,7 +59,14 @@ class ExerciseDetailHeader extends StatelessWidget {
                           ),
                         ),
                         FilledButton.tonal(
-                          onPressed: () {},
+                          onPressed: () async {
+                            await context
+                                .read<WorkoutsProvider>()
+                                .removeExercise(workout.id, [exercise]);
+
+                            if (!context.mounted) return;
+                            Navigator.of(context).pop();
+                          },
                           child: Row(
                             children: [
                               Icon(Icons.close_rounded),
