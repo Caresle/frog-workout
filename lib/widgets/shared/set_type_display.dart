@@ -50,7 +50,7 @@ class SetTypeDisplay extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: SizedBox(
                 width: deviceSize.width,
-                height: deviceSize.height * 0.4,
+                height: deviceSize.height * 0.5,
                 child: Column(
                   children: [
                     const Text('Set Type'),
@@ -95,6 +95,16 @@ class _SetTypeList extends StatelessWidget {
                 Text(setType.name),
               ],
             ),
+          ),
+        ),
+        FilledButton(
+          onPressed: () {},
+          child: Row(
+            children: [
+              Icon(Icons.close_rounded),
+              const SizedBox(width: 8),
+              Text('Remove set'),
+            ],
           ),
         ),
       ],

@@ -9,4 +9,11 @@ abstract class WorkoutRepository {
   // Workout detail
   Future<void> addExercise(int workoutId, List<Exercise> exercises);
   Future<void> removeExercise(int workoutId, List<Exercise> exercises);
+
+  // Sets
+  Future<void> addSet(
+    int workoutId,
+    int exerciseId,
+    List<WorkoutDetail> details,
+  );
 }

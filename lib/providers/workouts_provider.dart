@@ -44,4 +44,14 @@ class WorkoutsProvider extends ChangeNotifier {
     await getAll();
     notifyListeners();
   }
+
+  Future<void> addSet(
+    int workoutId,
+    int exerciseId,
+    List<WorkoutDetail> details,
+  ) async {
+    await _repository.addSet(workoutId, exerciseId, details);
+    await getAll();
+    notifyListeners();
+  }
 }

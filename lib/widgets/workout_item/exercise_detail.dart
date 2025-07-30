@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:workouts_app/config/theme/theme.dart';
+import 'package:workouts_app/constants/app_constants.dart';
 import 'package:workouts_app/domain/domain.dart';
 import 'package:workouts_app/models/models.dart';
+import 'package:workouts_app/providers/providers.dart';
 import 'package:workouts_app/widgets/widgets.dart';
 
 class ExerciseDetail extends StatelessWidget {
@@ -55,7 +57,19 @@ class ExerciseDetail extends StatelessWidget {
             const SizedBox(height: 16),
             ElevatedButton(
               style: AppStyle.elevatedButtonSecondary,
-              onPressed: () {},
+              onPressed: () async {
+                final WorkoutDetail detail = WorkoutDetail(
+                  id: AppConstants.newItemId,
+                  idWorkout: workout.id,
+                  idExercise: exercise.id,
+                );
+
+                await context.read<WorkoutsProvider>().addSet(
+                  workout.id,
+                  exercise.id,
+                  [detail],
+                );
+              },
               child: Row(
                 children: [
                   Icon(Icons.add_rounded),
