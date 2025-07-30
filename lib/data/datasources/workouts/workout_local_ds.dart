@@ -16,4 +16,6 @@ abstract class WorkoutLocalDs {
     int exerciseId,
     List<WorkoutDetail> details,
   );
+
+  Future<void> updateSet(WorkoutDetail detail);
 }

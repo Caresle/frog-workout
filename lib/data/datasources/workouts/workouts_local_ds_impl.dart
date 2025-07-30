@@ -50,7 +50,7 @@ class WorkoutLocalDsImpl extends WorkoutLocalDs {
 
   @override
   Future<List<Workout>> getAll() async {
-    await Future.delayed(Duration(seconds: 2));
+    // await Future.delayed(Duration(seconds: 2));
     return List<Workout>.of(workoutList);
   }
 
@@ -133,5 +133,25 @@ class WorkoutLocalDsImpl extends WorkoutLocalDs {
     newDetails.addAll(details);
 
     workoutList[index] = workoutItem.copyWith(details: newDetails);
+  }
+
+  @override
+  Future<void> updateSet(WorkoutDetail detail) async {
+    final workout = workoutList.firstWhere(
+      (w) => w.id == detail.idWorkout,
+      orElse: () => Workout.empty(),
+    );
+    final index = workout.details.indexWhere((d) => d.id == detail.id);
+
+    if (index == -1) {
+      return;
+    }
+
+    final details = workout.details;
+
+    final detailIndex = details.indexWhere((d) => d.id == detail.id);
+    details[detailIndex] = detail;
+
+    workoutList[index] = workout.copyWith(details: details);
   }
 }

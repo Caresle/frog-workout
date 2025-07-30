@@ -54,4 +54,10 @@ class WorkoutsProvider extends ChangeNotifier {
     await getAll();
     notifyListeners();
   }
+
+  Future<void> updateSet(WorkoutDetail detail) async {
+    await _repository.updateSet(detail);
+    await getAll();
+    notifyListeners();
+  }
 }

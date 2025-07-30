@@ -44,4 +44,9 @@ class WorkoutRepositoryImpl extends WorkoutRepository {
   ) {
     return _workoutLocalDsImpl.addSet(workoutId, exerciseId, details);
   }
+
+  @override
+  Future<void> updateSet(WorkoutDetail detail) {
+    return _workoutLocalDsImpl.updateSet(detail);
+  }
 }
