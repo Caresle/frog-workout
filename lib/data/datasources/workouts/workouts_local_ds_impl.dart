@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:workouts_app/data/data.dart';
 import 'package:workouts_app/domain/domain.dart';
 import 'package:workouts_app/widgets/widgets.dart';
@@ -57,5 +59,34 @@ class WorkoutLocalDsImpl extends WorkoutLocalDs {
     final index = workoutList.indexWhere((w) => w.id == workout.id);
     workoutList[index] = workout;
     return Future.value(workout);
+  }
+
+  @override
+  Future<void> addExercise(int workoutId, List<Exercise> exercises) async {
+    Workout workoutItem = workoutList.firstWhere(
+      (w) => w.id == workoutId,
+      orElse: () => Workout.empty(),
+    );
+
+    HashMap<int, Exercise> exercisesMap = HashMap();
+
+    for (var e in exercises) {
+      exercisesMap[e.id] = e;
+    }
+
+    for (var e in workoutItem.exercises) {
+      exercisesMap[e.id] = e;
+    }
+
+    workoutItem = workoutItem.copyWith(exercises: exercisesMap.values.toList());
+
+    final index = workoutList.indexWhere((w) => w.id == workoutId);
+
+    if (index == -1) {
+      workoutList.add(workoutItem);
+      return;
+    }
+
+    workoutList[index] = workoutItem;
   }
 }

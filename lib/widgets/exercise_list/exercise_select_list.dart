@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:workouts_app/domain/domain.dart';
@@ -21,6 +22,15 @@ class ExerciseSelectListState extends State<ExerciseSelectList> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (_isInit) return;
+    final exercises = Provider.of<ExerciseProvider>(
+      context,
+      listen: false,
+    ).exercises;
+
+    if (exercises.isNotEmpty) {
+      _isInit = true;
+      return;
+    }
 
     _isInit = true;
     Future.microtask(() {
