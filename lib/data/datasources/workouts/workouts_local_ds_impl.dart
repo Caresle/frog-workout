@@ -89,4 +89,26 @@ class WorkoutLocalDsImpl extends WorkoutLocalDs {
 
     workoutList[index] = workoutItem;
   }
+
+  @override
+  Future<void> removeExercise(int workoutId, List<Exercise> exercises) async {
+    Workout workoutItem = workoutList.firstWhere(
+      (w) => w.id == workoutId,
+      orElse: () => Workout.empty(),
+    );
+    final List<Exercise> workoutExercises = List.from(workoutItem.exercises);
+    workoutExercises.removeWhere(
+      (original) => exercises.any((e) => e.id == original.id),
+    );
+    workoutItem = workoutItem.copyWith(exercises: workoutExercises);
+
+    final index = workoutList.indexWhere((w) => w.id == workoutId);
+
+    if (index == -1) {
+      workoutList.add(workoutItem);
+      return;
+    }
+
+    workoutList[index] = workoutItem;
+  }
 }

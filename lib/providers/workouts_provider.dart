@@ -38,4 +38,10 @@ class WorkoutsProvider extends ChangeNotifier {
     await getAll();
     notifyListeners();
   }
+
+  Future<void> removeExercise(int workoutId, List<Exercise> exercises) async {
+    await _repository.removeExercise(workoutId, exercises);
+    await getAll();
+    notifyListeners();
+  }
 }

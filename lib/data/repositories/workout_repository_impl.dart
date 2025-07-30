@@ -30,4 +30,9 @@ class WorkoutRepositoryImpl extends WorkoutRepository {
   Future<void> addExercise(int workoutId, List<Exercise> exercises) {
     return _workoutLocalDsImpl.addExercise(workoutId, exercises);
   }
+
+  @override
+  Future<void> removeExercise(int workoutId, List<Exercise> exercises) {
+    return _workoutLocalDsImpl.removeExercise(workoutId, exercises);
+  }
 }
