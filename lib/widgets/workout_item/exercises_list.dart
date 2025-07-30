@@ -5,7 +5,6 @@ import 'package:workouts_app/widgets/widgets.dart';
 
 class ExercisesList extends StatelessWidget {
   final Workout workout;
-
   const ExercisesList({super.key, required this.workout});
 
   @override

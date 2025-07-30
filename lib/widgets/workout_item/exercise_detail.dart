@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:workouts_app/config/theme/theme.dart';
 import 'package:workouts_app/constants/app_constants.dart';
@@ -7,8 +8,24 @@ import 'package:workouts_app/models/models.dart';
 import 'package:workouts_app/providers/providers.dart';
 import 'package:workouts_app/widgets/widgets.dart';
 
-class ExerciseDetail extends StatelessWidget {
+/// Widget used to display the details of an exercise inside a workout
+/// and to allow the user to edit the exercise's details.
+class ExerciseDetail extends StatefulWidget {
   const ExerciseDetail({super.key});
+
+  @override
+  State<ExerciseDetail> createState() => ExerciseDetailState();
+}
+
+class ExerciseDetailState extends State<ExerciseDetail> {
+  List<WorkoutDetail> editableDetails = [];
+
+  @override
+  void initState() {
+    super.initState();
+    final (_, _, details) = context.read<WorkoutItemUI>();
+    editableDetails = List.from(details);
+  }
 
   Widget getWeightDisplay(Exercise exercise) {
     final text = exercise.weightType == WeightType.kg ? 'Kg' : 'Lbs';
@@ -35,6 +52,7 @@ class ExerciseDetail extends StatelessWidget {
             ExerciseDetailRestTime(),
             Table(
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+
               children: [
                 TableRow(
                   children: [
@@ -43,15 +61,40 @@ class ExerciseDetail extends StatelessWidget {
                     Text('Reps'),
                   ],
                 ),
-                ...details.map(
-                  (detail) => TableRow(
+                ...editableDetails.asMap().entries.map((entry) {
+                  final index = entry.key;
+                  final detail = entry.value;
+                  return TableRow(
                     children: [
                       SetTypeDisplay(setType: detail.setType, detail: detail),
-                      Text('${detail.weight}'),
+                      TextFormField(
+                        onChanged: (value) {
+                          final parsed = double.tryParse(value);
+
+                          if (parsed == null) return;
+
+                          editableDetails[index] = detail.copyWith(
+                            weight: parsed,
+                          );
+
+                          context.read<WorkoutsProvider>().updateWorkoutDetails(
+                            editableDetails,
+                          );
+                          setState(() {});
+                        },
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                            RegExp(r'^\d+\.?\d{0,2}'),
+                          ),
+                        ],
+                        decoration: InputDecoration(border: InputBorder.none),
+                        initialValue: detail.weight.toString(),
+                        keyboardType: TextInputType.number,
+                      ),
                       Text('${detail.reps}'),
                     ],
-                  ),
-                ),
+                  );
+                }),
               ],
             ),
             const SizedBox(height: 16),
@@ -69,6 +112,9 @@ class ExerciseDetail extends StatelessWidget {
                   exercise.id,
                   [detail],
                 );
+
+                editableDetails.add(detail);
+                setState(() {});
               },
               child: Row(
                 children: [

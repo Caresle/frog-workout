@@ -7,9 +7,11 @@ class WorkoutsProvider extends ChangeNotifier {
   WorkoutsProvider(this._repository);
 
   List<Workout> _workouts = [];
+  List<WorkoutDetail> _details = [];
   bool _isLoading = false;
 
   List<Workout> get workouts => _workouts;
+  List<WorkoutDetail> get details => _details;
   bool get isLoading => _isLoading;
 
   Future<void> getAll() async {
@@ -58,6 +60,11 @@ class WorkoutsProvider extends ChangeNotifier {
   Future<void> updateSet(WorkoutDetail detail) async {
     await _repository.updateSet(detail);
     await getAll();
+    notifyListeners();
+  }
+
+  void updateWorkoutDetails(List<WorkoutDetail> detail) {
+    _details = detail;
     notifyListeners();
   }
 }

@@ -71,7 +71,15 @@ class WorkoutItemScreen extends StatelessWidget {
     if (id == AppConstants.newItemId) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
-        child: FilledButton(onPressed: () {}, child: Text('Save')),
+        child: FilledButton(
+          onPressed: () {
+            final details = context.read<WorkoutsProvider>().details;
+            for (final detail in details) {
+              print(detail.weight);
+            }
+          },
+          child: Text('Save'),
+        ),
       );
     }
 
