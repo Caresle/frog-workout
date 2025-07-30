@@ -37,7 +37,7 @@ class ExercisesList extends StatelessWidget {
               .toList();
 
           return Provider.value(
-            value: (exercise, details),
+            value: (workout, exercise, details),
             child: ExerciseDetail(),
           );
         },

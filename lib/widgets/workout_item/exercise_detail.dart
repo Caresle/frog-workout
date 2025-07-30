@@ -22,7 +22,7 @@ class ExerciseDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final (exercise, details) = context.read<WorkoutItemUI>();
+    final (workout, exercise, details) = context.read<WorkoutItemUI>();
 
     return Card(
       child: ListTile(
