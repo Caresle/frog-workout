@@ -30,49 +30,11 @@ class ProgressScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              SizedBox(
-                width: size.width - 16,
-                height: 200,
-                child: ListView.builder(
-                  itemCount: 3,
-                  itemBuilder: (context, index) {
-                    return Card(
-                      clipBehavior: Clip.hardEdge,
-                      child: ListTile(
-                        title: Row(
-                          children: [
-                            Icon(Icons.timer_rounded),
-                            const SizedBox(width: 8),
-                            Text('Item $index'),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
+              ProgressDashboardCards(size: size),
               const SizedBox(height: 16),
               const Text('Workout History'),
               const SizedBox(height: 8),
-              Flexible(
-                child: ListView.builder(
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    return Card(
-                      clipBehavior: Clip.hardEdge,
-                      child: ListTile(
-                        title: Row(
-                          children: [
-                            Icon(Icons.timer_rounded),
-                            const SizedBox(width: 8),
-                            Text('Item $index'),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                ),
-              ),
+              ProgressWorkoutList(),
             ],
           ),
         ),
