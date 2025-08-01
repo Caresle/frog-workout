@@ -21,12 +21,11 @@ final List<DashboardCardEntity> dashboardCards = [
 ];
 
 class ProgressDashboardCards extends StatelessWidget {
-  const ProgressDashboardCards({super.key, required this.size});
-
-  final Size size;
+  const ProgressDashboardCards({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     return SizedBox(
       width: size.width - 16,
       height: 200,

@@ -6,8 +6,6 @@ class ProgressScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return Scaffold(
       appBar: AppBar(title: const Text('Progress')),
       body: SafeArea(
@@ -18,19 +16,9 @@ class ProgressScreen extends StatelessWidget {
             children: [
               const Text('Overall progress'),
               const SizedBox(height: 8),
-              SizedBox(
-                width: size.width - 16,
-                child: const Card(
-                  child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'Chart about general things (Duration, Reps, Weight, etc.)',
-                    ),
-                  ),
-                ),
-              ),
+              ProgressGeneralChart(),
               const SizedBox(height: 16),
-              ProgressDashboardCards(size: size),
+              ProgressDashboardCards(),
               const SizedBox(height: 16),
               const Text('Workout History'),
               const SizedBox(height: 8),
