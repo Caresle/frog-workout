@@ -66,6 +66,13 @@ final appMenuItems = <MenuItem>[
     isBottom: false,
     widgetPage: SettingsScreen(),
   ),
+  const MenuItem(
+    name: 'Progress',
+    path: '/progress',
+    icon: Icons.area_chart_rounded,
+    isBottom: true,
+    widgetPage: ProgressScreen(),
+  ),
 ];
 
 final dynamicRoutes = [
