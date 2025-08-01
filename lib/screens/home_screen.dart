@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: generalAppBar(),
+      appBar: generalAppBarWithSettings(context),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),

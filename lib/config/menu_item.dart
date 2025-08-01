@@ -59,6 +59,13 @@ final appMenuItems = <MenuItem>[
     isBottom: true,
     widgetPage: ExerciseScreen(),
   ),
+  const MenuItem(
+    name: 'Settings',
+    path: '/settings',
+    icon: Icons.settings_rounded,
+    isBottom: false,
+    widgetPage: SettingsScreen(),
+  ),
 ];
 
 final dynamicRoutes = [
