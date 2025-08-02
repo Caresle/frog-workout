@@ -44,6 +44,37 @@ class MenuItem {
   );
 }
 
+final progressRoutes = <MenuItem>[
+  const MenuItem(
+    name: 'Progress',
+    path: '/progress',
+    icon: Icons.area_chart_rounded,
+    isBottom: true,
+    widgetPage: ProgressScreen(),
+  ),
+  const MenuItem(
+    name: 'Statistics',
+    path: '/progress/statistics',
+    icon: Icons.area_chart_rounded,
+    isBottom: false,
+    widgetPage: StatisticsScreen(),
+  ),
+  const MenuItem(
+    name: 'Measures',
+    path: '/progress/measures',
+    icon: Icons.area_chart_rounded,
+    isBottom: false,
+    widgetPage: MeasuresScreen(),
+  ),
+  const MenuItem(
+    name: 'Calendar',
+    path: '/progress/calendar',
+    icon: Icons.area_chart_rounded,
+    isBottom: false,
+    widgetPage: CalendarScreen(),
+  ),
+];
+
 final appMenuItems = <MenuItem>[
   const MenuItem(
     name: 'Workouts',
@@ -66,6 +97,7 @@ final appMenuItems = <MenuItem>[
     isBottom: false,
     widgetPage: SettingsScreen(),
   ),
+  ...progressRoutes,
 ];
 
 final dynamicRoutes = [
