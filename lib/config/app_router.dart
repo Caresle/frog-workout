@@ -6,7 +6,7 @@ final appRouter = GoRouter(
     ...appMenuItems.map((route) => route.getGoRoute()),
     ...dynamicRoutes,
   ],
-  initialLocation: '/',
+  initialLocation: '/login',
 );
 
 final bottomRoutes = appMenuItems.where((route) => route.isBottom).toList();

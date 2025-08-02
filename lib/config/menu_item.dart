@@ -77,6 +77,13 @@ final progressRoutes = <MenuItem>[
 
 final appMenuItems = <MenuItem>[
   const MenuItem(
+    name: 'Login',
+    path: '/login',
+    icon: Icons.login_rounded,
+    isBottom: false,
+    widgetPage: LoginScreen(),
+  ),
+  const MenuItem(
     name: 'Workouts',
     path: '/',
     icon: Icons.home_rounded,
