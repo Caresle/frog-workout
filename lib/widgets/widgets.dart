@@ -35,3 +35,6 @@ export './workout_display/exercise_display_item.dart';
 export './progress/progress_dashboard_cards.dart';
 export './progress/progress_workout_list.dart';
 export './progress/progress_general_chart.dart';
+
+// measures
+export './measures/measures_list.dart';
