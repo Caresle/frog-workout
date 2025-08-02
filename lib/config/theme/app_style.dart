@@ -24,4 +24,8 @@ class AppStyle {
   static final ButtonStyle elevatedButtonSecondary = ElevatedButton.styleFrom(
     backgroundColor: Colors.blueGrey.shade900.withAlpha(20),
   );
+
+  static final ButtonStyle filledPrimaryBorderSm = FilledButton.styleFrom(
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+  );
 }
