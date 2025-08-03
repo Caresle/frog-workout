@@ -7,25 +7,27 @@ import 'package:workouts_app/providers/providers.dart';
 import 'package:workouts_app/widgets/widgets.dart';
 
 class WorkoutItemScreen extends StatelessWidget {
-  final int id;
+  final String id;
 
   const WorkoutItemScreen({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
+    print('id: $id');
     final deviceSize = MediaQuery.of(context).size;
     final workout = context.watch<WorkoutsProvider>().workouts.firstWhere(
       (w) => w.id == id,
-      orElse: () => Workout.empty(),
+      orElse: () => Workout.empty().copyWith(id: id),
     );
     final isValidWorkout =
-        workout.id != AppConstants.newItemId && workout.exercises.isNotEmpty;
+        !workout.id.contains(AppConstants.newItemIdPrefix) &&
+        workout.exercises.isNotEmpty;
 
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
           onPressed: () async {
-            if (id == AppConstants.newItemId) {
+            if (id.contains(AppConstants.newItemIdPrefix)) {
               await context.read<WorkoutsProvider>().delete(workout);
               if (!context.mounted) return;
             }
@@ -34,7 +36,7 @@ class WorkoutItemScreen extends StatelessWidget {
           },
           icon: Icon(Icons.arrow_back_rounded),
         ),
-        title: id == AppConstants.newItemId
+        title: id.contains(AppConstants.newItemIdPrefix)
             ? Text('New workout')
             : Text('Workout $id'),
         actions: [getTopActions(context, deviceSize)],
@@ -68,7 +70,7 @@ class WorkoutItemScreen extends StatelessWidget {
   }
 
   Widget getTopActions(BuildContext context, Size deviceSize) {
-    if (id == AppConstants.newItemId) {
+    if (id.contains(AppConstants.newItemIdPrefix)) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: FilledButton(

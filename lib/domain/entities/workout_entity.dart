@@ -1,8 +1,7 @@
-import 'package:workouts_app/constants/app_constants.dart';
 import 'package:workouts_app/domain/domain.dart';
 
 class Workout {
-  final int id;
+  final String id;
   final int? idUser;
   final String name;
   final DateTime createdAt;
@@ -20,11 +19,14 @@ class Workout {
     this.details = const <WorkoutDetail>[],
   });
 
-  factory Workout.empty() =>
-      Workout(id: AppConstants.newItemId, name: '', createdAt: DateTime(2025));
+  factory Workout.empty() => Workout(
+    id: 'temp-${DateTime.now().microsecondsSinceEpoch}',
+    name: '',
+    createdAt: DateTime(2025),
+  );
 
   Workout copyWith({
-    int? id,
+    String? id,
     int? idUser,
     String? name,
     DateTime? createdAt,

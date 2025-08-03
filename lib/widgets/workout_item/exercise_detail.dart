@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:workouts_app/config/theme/theme.dart';
-import 'package:workouts_app/constants/app_constants.dart';
 import 'package:workouts_app/domain/domain.dart';
 import 'package:workouts_app/models/models.dart';
 import 'package:workouts_app/providers/providers.dart';
@@ -10,22 +9,9 @@ import 'package:workouts_app/widgets/widgets.dart';
 
 /// Widget used to display the details of an exercise inside a workout
 /// and to allow the user to edit the exercise's details.
-class ExerciseDetail extends StatefulWidget {
+
+class ExerciseDetail extends StatelessWidget {
   const ExerciseDetail({super.key});
-
-  @override
-  State<ExerciseDetail> createState() => ExerciseDetailState();
-}
-
-class ExerciseDetailState extends State<ExerciseDetail> {
-  List<WorkoutDetail> editableDetails = [];
-
-  @override
-  void initState() {
-    super.initState();
-    final (_, _, details) = context.read<WorkoutItemUI>();
-    editableDetails = List.from(details);
-  }
 
   Widget getWeightDisplay(Exercise exercise) {
     final text = exercise.weightType == WeightType.kg ? 'Kg' : 'Lbs';
@@ -61,27 +47,13 @@ class ExerciseDetailState extends State<ExerciseDetail> {
                     Text('Reps'),
                   ],
                 ),
-                ...editableDetails.asMap().entries.map((entry) {
-                  final index = entry.key;
+                ...details.asMap().entries.map((entry) {
                   final detail = entry.value;
                   return TableRow(
                     children: [
                       SetTypeDisplay(setType: detail.setType, detail: detail),
                       TextFormField(
-                        onChanged: (value) {
-                          final parsed = double.tryParse(value);
-
-                          if (parsed == null) return;
-
-                          editableDetails[index] = detail.copyWith(
-                            weight: parsed,
-                          );
-
-                          context.read<WorkoutsProvider>().updateWorkoutDetails(
-                            editableDetails,
-                          );
-                          setState(() {});
-                        },
+                        onChanged: (value) {},
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
                             RegExp(r'^\d+\.?\d{0,2}'),
@@ -102,7 +74,7 @@ class ExerciseDetailState extends State<ExerciseDetail> {
               style: AppStyle.elevatedButtonSecondary,
               onPressed: () async {
                 final WorkoutDetail detail = WorkoutDetail(
-                  id: AppConstants.newItemId,
+                  id: 'temp-${DateTime.now().millisecondsSinceEpoch}',
                   idWorkout: workout.id,
                   idExercise: exercise.id,
                 );
@@ -112,9 +84,6 @@ class ExerciseDetailState extends State<ExerciseDetail> {
                   exercise.id,
                   [detail],
                 );
-
-                editableDetails.add(detail);
-                setState(() {});
               },
               child: Row(
                 children: [

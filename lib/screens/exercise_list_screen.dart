@@ -7,7 +7,7 @@ import 'package:workouts_app/widgets/widgets.dart';
 /// This screen is used to display a list of exercises
 /// to be selected when creating a new workout or editing an existing one.
 class ExerciseListScreen extends StatelessWidget {
-  final int id;
+  final String id;
   final GlobalKey<ExerciseSelectListState> exerciseSelectListKey = GlobalKey();
 
   ExerciseListScreen({super.key, required this.id});

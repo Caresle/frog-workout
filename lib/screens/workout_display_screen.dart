@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:workouts_app/widgets/widgets.dart';
 
 class WorkoutDisplayScreen extends StatelessWidget {
-  final int id;
+  final String id;
   const WorkoutDisplayScreen({super.key, required this.id});
 
   @override
