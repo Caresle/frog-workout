@@ -5,9 +5,9 @@ import 'package:workouts_app/domain/domain.dart';
 import 'package:workouts_app/widgets/widgets.dart';
 
 List<Workout> workoutList = [
-  Workout(id: 1, name: 'Push / Pull', createdAt: DateTime(2025)),
+  Workout(id: '1', name: 'Push / Pull', createdAt: DateTime(2025)),
   Workout(
-    id: 2,
+    id: '2',
     name: 'Leg',
     createdAt: DateTime(2025),
     exercises: [
@@ -16,13 +16,19 @@ List<Workout> workoutList = [
     ],
     details: [
       WorkoutDetail(
-        id: 1,
-        idWorkout: 2,
+        id: '1',
+        idWorkout: '2',
         idExercise: 1,
         setType: SetType.warmup,
       ),
-      WorkoutDetail(id: 2, idWorkout: 2, idExercise: 1, weight: 10, reps: 10),
-      WorkoutDetail(id: 3, idWorkout: 2, idExercise: 1),
+      WorkoutDetail(
+        id: '2',
+        idWorkout: '2',
+        idExercise: 1,
+        weight: 10,
+        reps: 10,
+      ),
+      WorkoutDetail(id: '3', idWorkout: '2', idExercise: 1),
     ],
   ),
 ];
@@ -30,13 +36,9 @@ List<Workout> workoutList = [
 class WorkoutLocalDsImpl extends WorkoutLocalDs {
   @override
   Future<Workout> create(Workout workout) {
-    final emptyWorkout = Workout(id: 0, name: '', createdAt: DateTime(2025));
-
-    final maxId = workoutList
-        .fold(emptyWorkout, (curr, next) => curr.id > next.id ? curr : next)
-        .id;
-
-    final newWorkout = workout.copyWith(id: maxId + 1);
+    final newWorkout = workout.copyWith(
+      id: 'temp-${DateTime.now().microsecondsSinceEpoch}',
+    );
     workoutList.add(newWorkout);
 
     return Future.value(workout);
@@ -62,10 +64,10 @@ class WorkoutLocalDsImpl extends WorkoutLocalDs {
   }
 
   @override
-  Future<void> addExercise(int workoutId, List<Exercise> exercises) async {
+  Future<void> addExercise(String workoutId, List<Exercise> exercises) async {
     Workout workoutItem = workoutList.firstWhere(
       (w) => w.id == workoutId,
-      orElse: () => Workout.empty(),
+      orElse: () => Workout.empty().copyWith(id: workoutId),
     );
 
     HashMap<int, Exercise> exercisesMap = HashMap();
@@ -91,7 +93,10 @@ class WorkoutLocalDsImpl extends WorkoutLocalDs {
   }
 
   @override
-  Future<void> removeExercise(int workoutId, List<Exercise> exercises) async {
+  Future<void> removeExercise(
+    String workoutId,
+    List<Exercise> exercises,
+  ) async {
     Workout workoutItem = workoutList.firstWhere(
       (w) => w.id == workoutId,
       orElse: () => Workout.empty(),
@@ -114,7 +119,7 @@ class WorkoutLocalDsImpl extends WorkoutLocalDs {
 
   @override
   Future<void> addSet(
-    int workoutId,
+    String workoutId,
     int exerciseId,
     List<WorkoutDetail> details,
   ) async {
@@ -135,6 +140,11 @@ class WorkoutLocalDsImpl extends WorkoutLocalDs {
     workoutList[index] = workoutItem.copyWith(details: newDetails);
   }
 
+  // TODO: Change the implementation to this method because
+  // we are going to pass a List<WorkoutDetail> instead of a WorkoutDetail
+  // Because we are going to do optimistic updates in the ui and then send
+  // the final data to the local db to be saved after all the modifications
+  // are done.
   @override
   Future<void> updateSet(WorkoutDetail detail) async {
     final workout = workoutList.firstWhere(

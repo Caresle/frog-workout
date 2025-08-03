@@ -8,7 +8,7 @@ class StartWorkout extends StatelessWidget {
   Widget build(BuildContext context) {
     return FilledButton(
       onPressed: () {
-        context.push('/workouts/-1/start');
+        context.push('/workouts/temp-1/start');
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,

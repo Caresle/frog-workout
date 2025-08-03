@@ -7,12 +7,12 @@ abstract class WorkoutRepository {
   Future<Workout> delete(Workout workout);
 
   // Workout detail
-  Future<void> addExercise(int workoutId, List<Exercise> exercises);
-  Future<void> removeExercise(int workoutId, List<Exercise> exercises);
+  Future<void> addExercise(String workoutId, List<Exercise> exercises);
+  Future<void> removeExercise(String workoutId, List<Exercise> exercises);
 
   // Sets
   Future<void> addSet(
-    int workoutId,
+    String workoutId,
     int exerciseId,
     List<WorkoutDetail> details,
   );

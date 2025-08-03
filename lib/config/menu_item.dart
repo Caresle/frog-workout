@@ -127,7 +127,7 @@ final dynamicRoutes = [
         return const Scaffold(body: Center(child: Text('No ID found')));
       }
 
-      return WorkoutItemScreen(id: int.parse(id));
+      return WorkoutItemScreen(id: id);
     },
   ),
   GoRoute(
@@ -138,7 +138,7 @@ final dynamicRoutes = [
         return const Scaffold(body: Center(child: Text('No ID found')));
       }
 
-      return WorkoutDisplayScreen(id: int.parse(id));
+      return WorkoutDisplayScreen(id: id);
     },
   ),
   GoRoute(
@@ -149,7 +149,7 @@ final dynamicRoutes = [
         return const Scaffold(body: Center(child: Text('No ID found')));
       }
 
-      return ExerciseListScreen(id: int.parse(id));
+      return ExerciseListScreen(id: id);
     },
   ),
 ];

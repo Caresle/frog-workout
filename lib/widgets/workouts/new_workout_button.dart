@@ -9,7 +9,9 @@ class NewWorkoutButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return FilledButton.tonal(
       onPressed: () {
-        context.push('/workouts/${AppConstants.newItemId}');
+        context.push(
+          '/workouts/${AppConstants.newItemIdPrefix}${DateTime.now().microsecondsSinceEpoch}',
+        );
       },
       child: Row(
         children: [
