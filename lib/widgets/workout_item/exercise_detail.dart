@@ -53,7 +53,19 @@ class ExerciseDetail extends StatelessWidget {
                     children: [
                       SetTypeDisplay(setType: detail.setType, detail: detail),
                       TextFormField(
-                        onChanged: (value) {},
+                        onChanged: (value) {
+                          try {
+                            final newDetail = detail.copyWith(
+                              weight: double.parse(value),
+                            );
+
+                            context.read<WorkoutsProvider>().updateSet(
+                              newDetail,
+                            );
+                          } catch (e) {
+                            return;
+                          }
+                        },
                         inputFormatters: [
                           FilteringTextInputFormatter.allow(
                             RegExp(r'^\d+\.?\d{0,2}'),
@@ -63,7 +75,29 @@ class ExerciseDetail extends StatelessWidget {
                         initialValue: detail.weight.toString(),
                         keyboardType: TextInputType.number,
                       ),
-                      Text('${detail.reps}'),
+                      TextFormField(
+                        onChanged: (value) {
+                          try {
+                            final newDetail = detail.copyWith(
+                              reps: double.parse(value),
+                            );
+
+                            context.read<WorkoutsProvider>().updateSet(
+                              newDetail,
+                            );
+                          } catch (e) {
+                            return;
+                          }
+                        },
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                            RegExp(r'^\d+\.?\d{0,2}'),
+                          ),
+                        ],
+                        decoration: InputDecoration(border: InputBorder.none),
+                        initialValue: detail.reps.toString(),
+                        keyboardType: TextInputType.number,
+                      ),
                     ],
                   );
                 }),
