@@ -74,7 +74,7 @@ class _WorkoutItemScreenState extends State<WorkoutItemScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              isValidWorkout ? StartWorkout() : const SizedBox(),
+              isValidWorkout ? StartWorkout(id: widget.id) : const SizedBox(),
               const SizedBox(height: 16),
               ExercisesList(workout: workout),
               FilledButton.tonal(

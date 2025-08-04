@@ -41,7 +41,6 @@ class WorkoutsList extends StatelessWidget {
         itemCount: workoutsProvider.workouts.length,
         itemBuilder: (context, index) {
           final workout = workoutsProvider.workouts[index];
-          print('${workout.id} / ${workout.name}');
 
           return Provider.value(value: workout, child: WorkoutItem());
         },

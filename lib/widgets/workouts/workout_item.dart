@@ -29,7 +29,7 @@ class WorkoutItem extends StatelessWidget {
                     ? Text('Total exercises: $totalExercises')
                     : const SizedBox(),
                 const SizedBox(height: 8),
-                StartWorkout(),
+                StartWorkout(id: workout.id),
               ],
             ),
           ),
