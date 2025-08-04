@@ -37,7 +37,7 @@ class WorkoutLocalDsImpl extends WorkoutLocalDs {
   @override
   Future<Workout> create(Workout workout) {
     final newWorkout = workout.copyWith(
-      id: 'temp-${DateTime.now().microsecondsSinceEpoch}',
+      id: 'new-${DateTime.now().microsecondsSinceEpoch}',
     );
     workoutList.add(newWorkout);
 

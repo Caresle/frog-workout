@@ -6,18 +6,41 @@ import 'package:workouts_app/domain/domain.dart';
 import 'package:workouts_app/providers/providers.dart';
 import 'package:workouts_app/widgets/widgets.dart';
 
-class WorkoutItemScreen extends StatelessWidget {
+class WorkoutItemScreen extends StatefulWidget {
   final String id;
 
   const WorkoutItemScreen({super.key, required this.id});
 
   @override
+  State<WorkoutItemScreen> createState() => _WorkoutItemScreenState();
+}
+
+class _WorkoutItemScreenState extends State<WorkoutItemScreen> {
+  final TextEditingController _nameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.id.contains(AppConstants.newItemIdPrefix)) {
+      return;
+    }
+
+    final workout = Provider.of<WorkoutsProvider>(context, listen: false)
+        .workouts
+        .firstWhere(
+          (w) => w.id == widget.id,
+          orElse: () => Workout.empty().copyWith(id: widget.id),
+        );
+
+    _nameController.text = workout.name;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    print('id: $id');
     final deviceSize = MediaQuery.of(context).size;
     final workout = context.watch<WorkoutsProvider>().workouts.firstWhere(
-      (w) => w.id == id,
-      orElse: () => Workout.empty().copyWith(id: id),
+      (w) => w.id == widget.id,
+      orElse: () => Workout.empty().copyWith(id: widget.id),
     );
     final isValidWorkout =
         !workout.id.contains(AppConstants.newItemIdPrefix) &&
@@ -27,7 +50,7 @@ class WorkoutItemScreen extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () async {
-            if (id.contains(AppConstants.newItemIdPrefix)) {
+            if (widget.id.contains(AppConstants.newItemIdPrefix)) {
               await context.read<WorkoutsProvider>().delete(workout);
               if (!context.mounted) return;
             }
@@ -36,9 +59,13 @@ class WorkoutItemScreen extends StatelessWidget {
           },
           icon: Icon(Icons.arrow_back_rounded),
         ),
-        title: id.contains(AppConstants.newItemIdPrefix)
-            ? Text('New workout')
-            : Text('Workout $id'),
+        title: TextFormField(
+          controller: _nameController,
+          decoration: InputDecoration(
+            labelText: 'Name',
+            border: InputBorder.none,
+          ),
+        ),
         actions: [getTopActions(context, deviceSize)],
       ),
       body: SafeArea(
@@ -70,15 +97,32 @@ class WorkoutItemScreen extends StatelessWidget {
   }
 
   Widget getTopActions(BuildContext context, Size deviceSize) {
-    if (id.contains(AppConstants.newItemIdPrefix)) {
+    if (widget.id.contains(AppConstants.newItemIdPrefix)) {
       return Padding(
         padding: const EdgeInsets.all(8.0),
         child: FilledButton(
-          onPressed: () {
-            final details = context.read<WorkoutsProvider>().details;
-            for (final detail in details) {
-              print(detail.weight);
+          onPressed: () async {
+            final workoutsProvider = context.read<WorkoutsProvider>();
+            final workouts = workoutsProvider.workouts;
+            final workout = workouts.cast<Workout?>().firstWhere(
+              (workout) => workout?.id == widget.id,
+              orElse: () => null,
+            );
+
+            if (workout == null) return;
+
+            final newWorkout = workout.copyWith(name: _nameController.text);
+            if (workout.id.contains(AppConstants.newItemIdPrefix)) {
+              await workoutsProvider.create(newWorkout);
+              // remove of the temp id workout
+              await workoutsProvider.delete(workout);
+
+              if (!context.mounted) return;
+              Navigator.of(context).pop();
+              return;
             }
+
+            await workoutsProvider.update(newWorkout);
           },
           child: Text('Save'),
         ),

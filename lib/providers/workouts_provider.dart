@@ -30,9 +30,18 @@ class WorkoutsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> update(Workout workout) async {
+    _isLoading = true;
+    notifyListeners();
+    await _repository.update(workout);
+    _isLoading = false;
+    notifyListeners();
+  }
+
   Future<void> delete(Workout workout) async {
     await _repository.delete(workout);
     await getAll();
+    notifyListeners();
   }
 
   Future<void> addExercise(String workoutId, List<Exercise> exercises) async {
