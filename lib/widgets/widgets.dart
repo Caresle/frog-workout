@@ -3,6 +3,8 @@ export './shared/main_navigation_bar.dart';
 export './shared/general_app_bar.dart';
 export './shared/start_workout.dart';
 export './shared/set_type_display.dart';
+export './shared/wrapper_cell.dart';
+export './shared/bottom_timer.dart';
 
 // exercise
 export './exercise/exercise_list.dart';

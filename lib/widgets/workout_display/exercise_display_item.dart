@@ -7,11 +7,13 @@ import 'package:workouts_app/widgets/widgets.dart';
 class ExerciseDisplayItem extends StatelessWidget {
   final Exercise exercise;
   final List<WorkoutDetail> details;
+  final void Function(int duration)? onStartTimer;
 
   const ExerciseDisplayItem({
     super.key,
     required this.exercise,
     required this.details,
+    this.onStartTimer,
   });
 
   @override
@@ -76,7 +78,12 @@ class ExerciseDisplayItem extends StatelessWidget {
                       ),
                       WrapperCell(
                         isLast: true,
-                        child: Checkbox(value: true, onChanged: (_) {}),
+                        child: Checkbox(
+                          value: true,
+                          onChanged: (_) {
+                            onStartTimer?.call(detail.restTime);
+                          },
+                        ),
                       ),
                     ],
                   );
@@ -163,45 +170,6 @@ class _Header extends StatelessWidget {
           icon: Icon(Icons.more_horiz_rounded),
         ),
       ],
-    );
-  }
-}
-
-class WrapperCell extends StatelessWidget {
-  final Widget? child;
-  final bool isLast;
-  final bool isFirst;
-
-  const WrapperCell({
-    super.key,
-    this.child,
-    this.isFirst = false,
-    this.isLast = false,
-  });
-
-  BorderRadiusGeometry? getBorderRadius() {
-    final radius = Radius.circular(8);
-
-    if (isFirst) {
-      return BorderRadius.only(topLeft: radius, bottomLeft: radius);
-    }
-
-    if (isLast) {
-      return BorderRadius.only(topRight: radius, bottomRight: radius);
-    }
-
-    return null;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.blue.shade600.withAlpha(50),
-        borderRadius: getBorderRadius(),
-      ),
-      margin: const EdgeInsets.symmetric(vertical: 2),
-      child: child,
     );
   }
 }

@@ -4,8 +4,13 @@ import 'package:workouts_app/widgets/widgets.dart';
 
 class ExerciseDisplayList extends StatelessWidget {
   final Workout workout;
+  final void Function(int duration)? onStartTimer;
 
-  const ExerciseDisplayList({super.key, required this.workout});
+  const ExerciseDisplayList({
+    super.key,
+    required this.workout,
+    this.onStartTimer,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +22,11 @@ class ExerciseDisplayList extends StatelessWidget {
             .where((d) => d.idExercise == exercise.id)
             .toList();
 
-        return ExerciseDisplayItem(exercise: exercise, details: details);
+        return ExerciseDisplayItem(
+          exercise: exercise,
+          details: details,
+          onStartTimer: onStartTimer,
+        );
       },
     );
   }

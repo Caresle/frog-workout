@@ -6,7 +6,14 @@ import 'package:workouts_app/widgets/widgets.dart';
 
 class WorkoutDisplayScreen extends StatelessWidget {
   final String id;
-  const WorkoutDisplayScreen({super.key, required this.id});
+  final GlobalKey<BottomTimerState> bottomTimerKey = GlobalKey();
+
+  WorkoutDisplayScreen({super.key, required this.id});
+
+  void startTimer(duration) {
+    bottomTimerKey.currentState?.startTimer(60);
+    // bottomTimerKey.currentState?.startTimer(duration);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +40,13 @@ class WorkoutDisplayScreen extends StatelessWidget {
               ? Center(child: const Text('Workout not found'))
               : Column(
                   children: [
-                    Flexible(child: ExerciseDisplayList(workout: workout)),
+                    Flexible(
+                      child: ExerciseDisplayList(
+                        workout: workout,
+                        onStartTimer: startTimer,
+                      ),
+                    ),
+                    BottomTimer(key: bottomTimerKey),
                   ],
                 ),
         ),
