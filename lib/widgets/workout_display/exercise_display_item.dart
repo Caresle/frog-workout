@@ -6,7 +6,7 @@ import 'package:workouts_app/widgets/widgets.dart';
 
 class ExerciseDisplayItem extends StatelessWidget {
   final Exercise exercise;
-  final List<WorkoutDetail> details;
+  final List<WorkoutDetailUi> details;
   final void Function(int duration)? onStartTimer;
 
   const ExerciseDisplayItem({
@@ -36,15 +36,18 @@ class ExerciseDisplayItem extends StatelessWidget {
                   ],
                 ),
                 ...details.asMap().entries.map((entry) {
-                  final detail = entry.value;
+                  final detail = entry.value.detail;
+                  final isComplete = entry.value.isComplete;
 
                   return TableRow(
                     children: [
                       WrapperCell(
+                        isComplete: isComplete,
                         isFirst: true,
                         child: SetTypeDisplay(detail: detail),
                       ),
                       WrapperCell(
+                        isComplete: isComplete,
                         child: TextFormField(
                           initialValue: '${detail.weight}',
                           textAlign: TextAlign.center,
@@ -61,6 +64,7 @@ class ExerciseDisplayItem extends StatelessWidget {
                         ),
                       ),
                       WrapperCell(
+                        isComplete: isComplete,
                         child: TextFormField(
                           initialValue: '${detail.reps}',
                           textAlign: TextAlign.center,
@@ -78,9 +82,11 @@ class ExerciseDisplayItem extends StatelessWidget {
                       ),
                       WrapperCell(
                         isLast: true,
+                        isComplete: isComplete,
                         child: Checkbox(
-                          value: true,
+                          value: isComplete,
                           onChanged: (_) {
+                            if (isComplete) return;
                             onStartTimer?.call(detail.restTime);
                           },
                         ),

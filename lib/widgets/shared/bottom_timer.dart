@@ -21,7 +21,6 @@ class BottomTimerState extends State<BottomTimer> {
   bool show = false;
 
   void startTimer(int duration) {
-    print('start timer');
     _duration = duration;
     _currentDuration = 0;
     show = true;
@@ -53,7 +52,9 @@ class BottomTimerState extends State<BottomTimer> {
     _timer?.cancel();
     _timer = null;
     show = false;
-    setState(() {});
+    if (mounted) {
+      setState(() {});
+    }
   }
 
   @override

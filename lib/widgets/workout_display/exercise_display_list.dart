@@ -20,6 +20,7 @@ class ExerciseDisplayList extends StatelessWidget {
         final exercise = workout.exercises[index];
         final details = workout.details
             .where((d) => d.idExercise == exercise.id)
+            .map((d) => WorkoutDetailUi.fromWorkoutDetail(d))
             .toList();
 
         return ExerciseDisplayItem(
