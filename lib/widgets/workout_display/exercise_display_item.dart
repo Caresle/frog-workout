@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:workouts_app/config/theme/theme.dart';
 import 'package:workouts_app/domain/domain.dart';
+import 'package:workouts_app/providers/workout_session_provider.dart';
 import 'package:workouts_app/widgets/widgets.dart';
 
 class ExerciseDisplayItem extends StatelessWidget {
@@ -87,6 +89,14 @@ class ExerciseDisplayItem extends StatelessWidget {
                           value: isComplete,
                           onChanged: (_) {
                             if (isComplete) return;
+                            context
+                                .read<WorkoutSessionProvider>()
+                                .updateDetails(
+                                  WorkoutDetailUi(
+                                    detail: detail,
+                                    isComplete: true,
+                                  ),
+                                );
                             onStartTimer?.call(detail.restTime);
                           },
                         ),

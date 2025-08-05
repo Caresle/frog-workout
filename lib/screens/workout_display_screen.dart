@@ -38,16 +38,16 @@ class WorkoutDisplayScreen extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: workout == null
               ? Center(child: const Text('Workout not found'))
-              : Column(
-                  children: [
-                    Flexible(
-                      child: ExerciseDisplayList(
-                        workout: workout,
-                        onStartTimer: startTimer,
+              : ChangeNotifierProvider(
+                  create: (_) => WorkoutSessionProvider(workout: workout),
+                  child: Column(
+                    children: [
+                      Flexible(
+                        child: ExerciseDisplayList(onStartTimer: startTimer),
                       ),
-                    ),
-                    BottomTimer(key: bottomTimerKey),
-                  ],
+                      BottomTimer(key: bottomTimerKey),
+                    ],
+                  ),
                 ),
         ),
       ),
