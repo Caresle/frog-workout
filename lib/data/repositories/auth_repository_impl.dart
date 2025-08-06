@@ -13,7 +13,9 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<bool> isAuthenticated() async {
+    print('isAuthenticated');
     final isLocal = await _localDs.isAuthenticated();
+    print('isLocal: $isLocal');
     if (isLocal) return true;
 
     final isRemote = await _remoteDs.isAuthenticated();

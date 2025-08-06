@@ -1,9 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:workouts_app/config/theme/theme.dart';
+import 'package:workouts_app/providers/providers.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
+
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    final auth = Provider.of<AuthProvider>(context, listen: false);
+
+    auth.isAuthenticated().then((value) {
+      if (value && mounted) {
+        context.go('/');
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
