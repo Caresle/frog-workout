@@ -26,6 +26,10 @@ class BottomTimerState extends State<BottomTimer> {
     show = true;
     setState(() {});
     _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (!mounted) {
+        timer.cancel();
+        return;
+      }
       _currentDuration++;
       if (_duration - _currentDuration <= 0) {
         _stopTimer();
