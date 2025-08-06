@@ -1,26 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:workouts_app/data/data.dart';
+import 'package:workouts_app/domain/domain.dart';
+import 'package:workouts_app/providers/providers.dart';
 import 'package:workouts_app/widgets/widgets.dart';
 
 class WorkoutDisplayScreen extends StatelessWidget {
   final String id;
-  const WorkoutDisplayScreen({super.key, required this.id});
+  final GlobalKey<BottomTimerState> bottomTimerKey = GlobalKey();
+
+  WorkoutDisplayScreen({super.key, required this.id});
+
+  void startTimer(duration) {
+    bottomTimerKey.currentState?.startTimer(60);
+    // bottomTimerKey.currentState?.startTimer(duration);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Workout name'),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: FilledButton(onPressed: () {}, child: Text('Finish')),
-          ),
-        ],
+    final workouts = context.watch<WorkoutsProvider>().workouts;
+    final workout = workouts.cast<Workout?>().firstWhere(
+      (w) => w?.id == id,
+      orElse: () => null,
+    );
+
+    if (workout == null) {
+      return Scaffold(
+        appBar: AppBar(title: Text('Workout not found')),
+        body: Center(child: Text('Workout not found')),
+      );
+    }
+
+    return ChangeNotifierProvider(
+      create: (_) => WorkoutSessionProvider(
+        workout: workout,
+        recordRepository: RecordRepositoryImpl(RecordLocalDsImpl()),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(children: [Flexible(child: ExerciseDisplayList())]),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(workout.name),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: FinishWorkoutSession(),
+            ),
+          ],
+        ),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Flexible(child: ExerciseDisplayList(onStartTimer: startTimer)),
+                BottomTimer(key: bottomTimerKey),
+              ],
+            ),
+          ),
         ),
       ),
     );

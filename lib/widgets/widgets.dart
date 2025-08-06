@@ -3,6 +3,8 @@ export './shared/main_navigation_bar.dart';
 export './shared/general_app_bar.dart';
 export './shared/start_workout.dart';
 export './shared/set_type_display.dart';
+export './shared/wrapper_cell.dart';
+export './shared/bottom_timer.dart';
 
 // exercise
 export './exercise/exercise_list.dart';
@@ -30,6 +32,7 @@ export './workout_item/exercise_detail.dart';
 // workout display
 export './workout_display/exercise_display_list.dart';
 export './workout_display/exercise_display_item.dart';
+export './workout_display/finish_workout_session.dart';
 
 // progress
 export './progress/progress_dashboard_cards.dart';
