@@ -1,12 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 import 'package:workouts_app/config/theme/theme.dart';
+import 'package:workouts_app/providers/providers.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    final auth = Provider.of<AuthProvider>(context, listen: false);
+
+    auth.isAuthenticated().then((value) {
+      if (value && mounted) {
+        context.go('/');
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final authProvider = context.read<AuthProvider>();
+
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -43,29 +65,37 @@ class LoginScreen extends StatelessWidget {
                             child: Icon(Icons.pets_rounded, size: 48),
                           ),
                           const SizedBox(height: 16),
-                          TextFormField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              label: Text('Username'),
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          TextFormField(
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              label: Text('Password'),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
+                          // TextFormField(
+                          //   decoration: InputDecoration(
+                          //     border: OutlineInputBorder(),
+                          //     label: Text('Username'),
+                          //   ),
+                          // ),
+                          // const SizedBox(height: 8),
+                          // TextFormField(
+                          //   obscureText: true,
+                          //   decoration: InputDecoration(
+                          //     border: OutlineInputBorder(),
+                          //     label: Text('Password'),
+                          //   ),
+                          // ),
+                          // const SizedBox(height: 16),
                           SizedBox(
                             width: size.width - 32,
                             child: FilledButton(
                               style: AppStyle.filledPrimaryBorderSm,
-                              onPressed: () {
+                              onPressed: () async {
+                                final isValid = await authProvider.localLogin();
+
+                                if (!isValid) {
+                                  return;
+                                }
+
+                                if (!context.mounted) return;
+
                                 context.go('/');
                               },
-                              child: const Text('Login'),
+                              child: const Text('Start using'),
                             ),
                           ),
                         ],

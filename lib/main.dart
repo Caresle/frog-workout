@@ -9,6 +9,16 @@ void main() => runApp(
     providers: [
       ChangeNotifierProvider(
         create: (_) {
+          return AuthProvider(
+            AuthRepositoryImpl(
+              local: AuthLocalDsImpl(),
+              remote: AuthRemoteDsImpl(),
+            ),
+          );
+        },
+      ),
+      ChangeNotifierProvider(
+        create: (_) {
           return ExerciseProvider(
             ExerciseRepositoryImpl(ExerciseLocalDsImpl()),
           );
