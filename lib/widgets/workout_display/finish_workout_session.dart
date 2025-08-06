@@ -16,9 +16,13 @@ class FinishWorkoutSession extends StatelessWidget {
 
         if (!isValid) {
           await _invalidDataAlert(context);
+          return;
         }
 
-        workoutSession.finishWorkout();
+        await workoutSession.finishWorkout();
+        if (context.mounted) {
+          Navigator.of(context).pop();
+        }
       },
       child: Text('Finish'),
     );
@@ -39,17 +43,23 @@ class FinishWorkoutSession extends StatelessWidget {
               const SizedBox(height: 8),
               ElevatedButton(
                 style: AppStyle.elevatedButtonSecondary,
-                onPressed: () {
-                  workoutSession.finishWorkout(saveInvalidSets: true);
-                  Navigator.of(context).pop();
+                onPressed: () async {
+                  await workoutSession.finishWorkout(saveInvalidSets: true);
+
+                  if (context.mounted) {
+                    Navigator.of(context).pop();
+                  }
                 },
                 child: Text('Discard invalid sets'),
               ),
               FilledButton(
                 style: AppStyle.filledDangerGhost,
-                onPressed: () {
-                  workoutSession.finishWorkout(saveInvalidSets: false);
-                  Navigator.of(context).pop();
+                onPressed: () async {
+                  await workoutSession.finishWorkout(saveInvalidSets: false);
+
+                  if (context.mounted) {
+                    Navigator.of(context).pop();
+                  }
                 },
                 child: Text('Save invalid sets'),
               ),
