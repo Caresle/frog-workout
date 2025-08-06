@@ -10,6 +10,7 @@ export './datasources/records/record_local_ds_impl.dart';
 export './datasources/auth/auth_remote_ds_impl.dart';
 export './datasources/auth/auth_local_ds_impl.dart';
 export './datasources/auth/auth_handler_ds.dart';
+export './datasources/auth/auth_local_ds.dart';
 
 // mappers
 export './mappers/exercise_mapper.dart';

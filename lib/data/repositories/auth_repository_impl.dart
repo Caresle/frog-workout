@@ -1,12 +1,12 @@
-import 'package:workouts_app/data/datasources/auth/auth_handler_ds.dart';
+import 'package:workouts_app/data/data.dart';
 import 'package:workouts_app/domain/domain.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
-  final AuthHandlerDs _localDs;
+  final AuthLocalDs _localDs;
   final AuthHandlerDs _remoteDs;
 
   AuthRepositoryImpl({
-    required AuthHandlerDs local,
+    required AuthLocalDs local,
     required AuthHandlerDs remote,
   }) : _localDs = local,
        _remoteDs = remote;
