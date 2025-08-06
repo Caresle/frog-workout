@@ -4,5 +4,5 @@
 /// local storage, etc
 abstract class AuthHandlerDs {
   Future<bool> isAuthenticated();
-  Future<bool> signIn();
+  Future<bool> login();
 }

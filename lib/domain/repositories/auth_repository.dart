@@ -1,6 +1,6 @@
 abstract class AuthRepository {
-  Future<bool> signIn();
-  Future<bool> signOut();
+  Future<bool> login();
+  Future<bool> logout();
 
   // check for authentication
 
@@ -8,4 +8,6 @@ abstract class AuthRepository {
   Future<bool> isAuthenticated();
   Future<bool> isRemoteAuthenticated();
   Future<bool> isLocalAuthenticated();
+
+  Future<bool> localLogin();
 }

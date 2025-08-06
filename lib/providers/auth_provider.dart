@@ -9,4 +9,8 @@ class AuthProvider extends ChangeNotifier {
   Future<bool> isAuthenticated() {
     return _repository.isAuthenticated();
   }
+
+  Future<bool> localLogin() {
+    return _repository.localLogin();
+  }
 }

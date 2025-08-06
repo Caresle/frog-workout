@@ -13,9 +13,7 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<bool> isAuthenticated() async {
-    print('isAuthenticated');
     final isLocal = await _localDs.isAuthenticated();
-    print('isLocal: $isLocal');
     if (isLocal) return true;
 
     final isRemote = await _remoteDs.isAuthenticated();
@@ -34,14 +32,19 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<bool> signIn() {
+  Future<bool> login() {
     // TODO: implement signIn
     throw UnimplementedError();
   }
 
   @override
-  Future<bool> signOut() {
+  Future<bool> logout() {
     // TODO: implement signOut
     throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> localLogin() {
+    return _localDs.login();
   }
 }

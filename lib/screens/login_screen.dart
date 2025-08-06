@@ -27,6 +27,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = context.read<AuthProvider>();
+
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -63,29 +65,37 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Icon(Icons.pets_rounded, size: 48),
                           ),
                           const SizedBox(height: 16),
-                          TextFormField(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              label: Text('Username'),
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          TextFormField(
-                            obscureText: true,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              label: Text('Password'),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
+                          // TextFormField(
+                          //   decoration: InputDecoration(
+                          //     border: OutlineInputBorder(),
+                          //     label: Text('Username'),
+                          //   ),
+                          // ),
+                          // const SizedBox(height: 8),
+                          // TextFormField(
+                          //   obscureText: true,
+                          //   decoration: InputDecoration(
+                          //     border: OutlineInputBorder(),
+                          //     label: Text('Password'),
+                          //   ),
+                          // ),
+                          // const SizedBox(height: 16),
                           SizedBox(
                             width: size.width - 32,
                             child: FilledButton(
                               style: AppStyle.filledPrimaryBorderSm,
-                              onPressed: () {
+                              onPressed: () async {
+                                final isValid = await authProvider.localLogin();
+
+                                if (!isValid) {
+                                  return;
+                                }
+
+                                if (!context.mounted) return;
+
                                 context.go('/');
                               },
-                              child: const Text('Login'),
+                              child: const Text('Start using'),
                             ),
                           ),
                         ],

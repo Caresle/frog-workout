@@ -7,7 +7,7 @@ class AuthRemoteDsImpl implements AuthHandlerDs {
   }
 
   @override
-  Future<bool> signIn() async {
+  Future<bool> login() async {
     return true;
   }
 }
