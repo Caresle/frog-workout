@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:workouts_app/data/data.dart';
 import 'package:workouts_app/domain/domain.dart';
 import 'package:workouts_app/providers/providers.dart';
 import 'package:workouts_app/widgets/widgets.dart';
@@ -23,32 +24,38 @@ class WorkoutDisplayScreen extends StatelessWidget {
       orElse: () => null,
     );
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(workout?.name ?? ""),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(4.0),
-            child: FilledButton(onPressed: () {}, child: Text('Finish')),
-          ),
-        ],
+    if (workout == null) {
+      return Scaffold(
+        appBar: AppBar(title: Text('Workout not found')),
+        body: Center(child: Text('Workout not found')),
+      );
+    }
+
+    return ChangeNotifierProvider(
+      create: (_) => WorkoutSessionProvider(
+        workout: workout,
+        recordRepository: RecordRepositoryImpl(RecordLocalDsImpl()),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: workout == null
-              ? Center(child: const Text('Workout not found'))
-              : ChangeNotifierProvider(
-                  create: (_) => WorkoutSessionProvider(workout: workout),
-                  child: Column(
-                    children: [
-                      Flexible(
-                        child: ExerciseDisplayList(onStartTimer: startTimer),
-                      ),
-                      BottomTimer(key: bottomTimerKey),
-                    ],
-                  ),
-                ),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(workout.name),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: FinishWorkoutSession(),
+            ),
+          ],
+        ),
+        body: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Flexible(child: ExerciseDisplayList(onStartTimer: startTimer)),
+                BottomTimer(key: bottomTimerKey),
+              ],
+            ),
+          ),
         ),
       ),
     );
