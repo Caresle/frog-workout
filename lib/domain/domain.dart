@@ -11,3 +11,4 @@ export './entities/ui/workout_detail_ui_entity.dart';
 export './repositories/exercise_repository.dart';
 export './repositories/workout_repository.dart';
 export './repositories/record_repository.dart';
+export './repositories/auth_repository.dart';
