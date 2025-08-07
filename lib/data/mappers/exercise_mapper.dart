@@ -20,4 +20,11 @@ class ExerciseMapper {
       'id_user': exercise.idUser,
     };
   }
+
+  static Map<String, dynamic> toJsonWorkoutExercise(
+    String workoutId,
+    Exercise exercise,
+  ) {
+    return {'id_workout': workoutId, 'id_exercise': exercise.id};
+  }
 }

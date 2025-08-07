@@ -10,7 +10,8 @@ final String exercisesTable = '''
 
 final String workoutsTable = '''
   create table tbl_wk_workouts (
-    id integer primary key autoincrement,
+    -- id integer primary key autoincrement,
+    id varchar(255) not null,
     id_user varchar(255),
     name varchar(255),
     created_at datetime,
@@ -18,10 +19,10 @@ final String workoutsTable = '''
   );
 ''';
 
-final String wokroutsDetailsTable = '''
+final String workoutsDetailsTable = '''
   create table tbl_wk_workouts_det (
-    id serial not null,
-    id_workout integer null,
+    id integer primary key autoincrement,
+    id_workout varchar(255) null,
     id_exercise integer null,
     set_index integer not null default 0,
     set_type varchar(20) null,
@@ -29,6 +30,14 @@ final String wokroutsDetailsTable = '''
     weight double null,
     reps integer null,
     notes text null
+  );
+''';
+
+final String workoutsExercisesTable = '''
+  create table tbl_wk_workouts_exercises (
+    id integer primary key autoincrement,
+    id_exercise integer null,
+    id_workout integer null
   );
 ''';
 
@@ -53,6 +62,7 @@ final String recordsTable = '''
 final List<String> migrations = [
   exercisesTable,
   workoutsTable,
-  wokroutsDetailsTable,
+  workoutsDetailsTable,
+  workoutsExercisesTable,
   recordsTable,
 ];
