@@ -36,7 +36,8 @@ Future<void> main() async {
         ChangeNotifierProvider(
           create: (_) {
             return WorkoutsProvider(
-              WorkoutRepositoryImpl(WorkoutLocalDsImpl()),
+              // WorkoutRepositoryImpl(WorkoutLocalDsImpl()),
+              WorkoutRepositoryImpl(WorkoutsSqfliteDs()),
             );
           },
         ),
