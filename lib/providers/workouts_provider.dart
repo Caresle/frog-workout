@@ -26,6 +26,7 @@ class WorkoutsProvider extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
     await _repository.create(workout);
+    await _repository.getAll();
     _isLoading = false;
     notifyListeners();
   }
