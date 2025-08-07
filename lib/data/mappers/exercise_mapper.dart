@@ -6,7 +6,7 @@ class ExerciseMapper {
       id: json['id'],
       name: json['name'],
       weightType: json['weight_type'] == 'kg' ? WeightType.kg : WeightType.lbs,
-      customCreated: json['custom_created'],
+      customCreated: json['custom_created'] == 1,
       idUser: json['id_user'],
     );
   }
@@ -16,7 +16,7 @@ class ExerciseMapper {
       'id': exercise.id,
       'name': exercise.name,
       'weight_type': exercise.weightType == WeightType.kg ? 'kg' : 'lbs',
-      'custom_created': exercise.customCreated,
+      'custom_created': exercise.customCreated ? 1 : 0,
       'id_user': exercise.idUser,
     };
   }
