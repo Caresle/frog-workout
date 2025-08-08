@@ -114,7 +114,15 @@ class _SetTypeList extends StatelessWidget {
           ),
         ),
         FilledButton(
-          onPressed: () {},
+          onPressed: () async {
+            await context.read<WorkoutsProvider>().removeSet(
+              detail.idWorkout,
+              detail,
+            );
+
+            if (!context.mounted) return;
+            Navigator.of(context).pop();
+          },
           child: Row(
             children: [
               Icon(Icons.close_rounded),

@@ -92,6 +92,23 @@ class WorkoutsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> removeSet(String workoutId, WorkoutDetail detail) async {
+    final Workout? workout = workouts.cast<Workout?>().firstWhere(
+      (w) => w?.id == workoutId,
+      orElse: () => null,
+    );
+
+    if (workout == null) {
+      return;
+    }
+
+    final index = workouts.indexWhere((w) => w.id == workoutId);
+    final details = workout.details.where((d) => d.id != detail.id).toList();
+
+    workouts[index] = workout.copyWith(details: details);
+    notifyListeners();
+  }
+
   /// This method is used to update a set for a given exercise, consider that
   /// this only will affect the current data in the UI, and not the local db.
   Future<void> updateSet(WorkoutDetail detail) async {

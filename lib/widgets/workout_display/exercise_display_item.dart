@@ -88,7 +88,17 @@ class ExerciseDisplayItem extends StatelessWidget {
                         child: Checkbox(
                           value: isComplete,
                           onChanged: (_) {
-                            if (isComplete) return;
+                            if (isComplete) {
+                              context
+                                  .read<WorkoutSessionProvider>()
+                                  .updateDetails(
+                                    WorkoutDetailUi(
+                                      detail: detail,
+                                      isComplete: false,
+                                    ),
+                                  );
+                              return;
+                            }
                             context
                                 .read<WorkoutSessionProvider>()
                                 .updateDetails(
