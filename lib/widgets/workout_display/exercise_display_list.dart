@@ -23,6 +23,7 @@ class ExerciseDisplayList extends StatelessWidget {
             .toList();
 
         return ExerciseDisplayItem(
+          workout: workout,
           exercise: exercise,
           details: details,
           onStartTimer: onStartTimer,

@@ -12,8 +12,7 @@ class WorkoutDisplayScreen extends StatelessWidget {
   WorkoutDisplayScreen({super.key, required this.id});
 
   void startTimer(duration) {
-    bottomTimerKey.currentState?.startTimer(60);
-    // bottomTimerKey.currentState?.startTimer(duration);
+    bottomTimerKey.currentState?.startTimer(duration);
   }
 
   @override

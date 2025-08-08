@@ -33,6 +33,7 @@ export './workout_item/exercise_detail.dart';
 export './workout_display/exercise_display_list.dart';
 export './workout_display/exercise_display_item.dart';
 export './workout_display/finish_workout_session.dart';
+export './workout_display/exercise_display_rest_time.dart';
 
 // progress
 export './progress/progress_dashboard_cards.dart';

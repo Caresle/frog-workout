@@ -7,6 +7,7 @@ import 'package:workouts_app/providers/workout_session_provider.dart';
 import 'package:workouts_app/widgets/widgets.dart';
 
 class ExerciseDisplayItem extends StatelessWidget {
+  final Workout workout;
   final Exercise exercise;
   final List<WorkoutDetailUi> details;
   final void Function(int duration)? onStartTimer;
@@ -15,6 +16,7 @@ class ExerciseDisplayItem extends StatelessWidget {
     super.key,
     required this.exercise,
     required this.details,
+    required this.workout,
     this.onStartTimer,
   });
 
@@ -25,7 +27,7 @@ class ExerciseDisplayItem extends StatelessWidget {
         title: _Header(exercise: exercise),
         subtitle: Column(
           children: [
-            // ExerciseDetailRestTime(),
+            ExerciseDisplayRestTime(workout: workout, exercise: exercise),
             Table(
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,
               children: [
