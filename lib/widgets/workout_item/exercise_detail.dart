@@ -35,10 +35,9 @@ class ExerciseDetail extends StatelessWidget {
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ExerciseDetailRestTime(),
+            ExerciseDetailRestTime(workout: workout, exercise: exercise),
             Table(
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,
-
               children: [
                 TableRow(
                   children: [

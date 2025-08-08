@@ -25,7 +25,7 @@ class ExerciseDisplayItem extends StatelessWidget {
         title: _Header(exercise: exercise),
         subtitle: Column(
           children: [
-            ExerciseDetailRestTime(),
+            // ExerciseDetailRestTime(),
             Table(
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,
               children: [

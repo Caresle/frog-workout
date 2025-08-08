@@ -81,6 +81,11 @@ class WorkoutsProvider extends ChangeNotifier {
     final index = workouts.indexWhere((w) => w.id == workoutId);
 
     List<WorkoutDetail> newDetails = List.from(workout.details);
+    final restTime = newDetails.firstOrNull?.restTime ?? 0;
+
+    details = details
+        .map((detail) => detail.copyWith(restTime: restTime))
+        .toList();
     newDetails.addAll(details);
 
     workouts[index] = workout.copyWith(details: newDetails);
@@ -110,6 +115,30 @@ class WorkoutsProvider extends ChangeNotifier {
     details[indexDetail] = detail;
 
     workouts[index] = workout.copyWith(details: details);
+    notifyListeners();
+  }
+
+  Future<void> udpateRestTime(
+    int restTimeInSeconds,
+    List<WorkoutDetail> details,
+  ) async {
+    final Workout? workout = workouts.cast<Workout?>().firstWhere(
+      (w) => w?.id == details.firstOrNull?.idWorkout,
+      orElse: () => null,
+    );
+
+    if (workout == null) {
+      return;
+    }
+
+    final index = workouts.indexWhere((w) => w.id == workout.id);
+
+    List<WorkoutDetail> newDetails = List.from(workout.details);
+    newDetails = newDetails
+        .map((detail) => detail.copyWith(restTime: restTimeInSeconds))
+        .toList();
+
+    workouts[index] = workout.copyWith(details: newDetails);
     notifyListeners();
   }
 }

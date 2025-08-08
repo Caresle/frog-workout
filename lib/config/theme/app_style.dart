@@ -28,4 +28,11 @@ class AppStyle {
   static final ButtonStyle filledPrimaryBorderSm = FilledButton.styleFrom(
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
   );
+
+  static final ButtonStyle textButtonDisabled = TextButton.styleFrom(
+    backgroundColor: Colors.grey.shade800.withAlpha(150),
+    foregroundColor: Colors.grey.shade700,
+    disabledBackgroundColor: Colors.grey.shade800.withAlpha(150),
+    disabledForegroundColor: Colors.grey.shade700,
+  );
 }
