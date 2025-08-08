@@ -5,7 +5,7 @@ class RecordLocalDsImpl extends RecordLocalDs {
   @override
   Future<void> create(List<WorkoutRecord> records) async {
     print('create records');
-    await Future.delayed(Duration(seconds: 2));
+    await Future.value();
   }
 
   @override

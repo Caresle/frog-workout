@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:workouts_app/config/theme/theme.dart';
 import 'package:workouts_app/providers/providers.dart';
@@ -20,8 +21,9 @@ class FinishWorkoutSession extends StatelessWidget {
         }
 
         await workoutSession.finishWorkout();
+
         if (context.mounted) {
-          Navigator.of(context).pop();
+          context.go('/');
         }
       },
       child: Text('Finish'),
@@ -46,8 +48,9 @@ class FinishWorkoutSession extends StatelessWidget {
                 onPressed: () async {
                   await workoutSession.finishWorkout(saveInvalidSets: true);
 
+                  print('save invalid sets');
                   if (context.mounted) {
-                    Navigator.of(context).pop();
+                    context.go('/');
                   }
                 },
                 child: Text('Discard invalid sets'),
@@ -58,7 +61,8 @@ class FinishWorkoutSession extends StatelessWidget {
                   await workoutSession.finishWorkout(saveInvalidSets: false);
 
                   if (context.mounted) {
-                    Navigator.of(context).pop();
+                    print('save invalid sets');
+                    context.go('/');
                   }
                 },
                 child: Text('Save invalid sets'),
