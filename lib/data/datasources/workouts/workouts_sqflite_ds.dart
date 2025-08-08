@@ -114,12 +114,19 @@ class WorkoutsSqfliteDs extends WorkoutLocalDs {
       where: 'id_workout = ?',
       whereArgs: [workout.id],
     );
-    await db.update(
+
+    await db.delete(
       tableDetails,
-      {'id_workout': newWorkout.id},
-      where: 'id_workout = ?',
+      where: "id_workout = ?",
       whereArgs: [workout.id],
     );
+
+    for (var detail in newWorkout.details) {
+      final values = WorkoutDetailMapper.toJson(detail);
+      values.remove('id');
+      values['id_workout'] = newWorkout.id;
+      await db.insert(tableDetails, values);
+    }
 
     await db.delete(tableName, where: "id = ?", whereArgs: [workout.id]);
 

@@ -1,14 +1,23 @@
 import 'package:workouts_app/domain/domain.dart';
+import 'package:workouts_app/widgets/widgets.dart';
 
 class WorkoutDetailMapper {
   static WorkoutDetail fromJson(Map<String, dynamic> json) {
+    final SetType setType = SetType.values.firstWhere(
+      (element) => element.name == json['set_type'],
+      orElse: () => SetType.normal,
+    );
+
+    final weight = double.tryParse(json['weight'].toString());
+    final reps = double.tryParse(json['reps'].toString());
+
     return WorkoutDetail(
-      id: json['id'],
+      id: json['id'].toString(),
       idWorkout: json['id_workout'],
       idExercise: json['id_exercise'],
-      setType: json['set_type'],
-      weight: json['weight'],
-      reps: json['reps'],
+      setType: setType,
+      weight: weight ?? 0,
+      reps: reps ?? 0,
       notes: json['notes'],
     );
   }
