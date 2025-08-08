@@ -28,7 +28,9 @@ class ExerciseDetailRestTime extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     FilledButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        print('hey');
+                      },
                       child: Row(
                         children: [
                           Icon(Icons.check_rounded),

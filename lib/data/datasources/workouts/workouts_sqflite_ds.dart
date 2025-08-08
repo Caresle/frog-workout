@@ -2,7 +2,6 @@ import 'package:uuid/uuid.dart';
 import 'package:workouts_app/config/config.dart';
 import 'package:workouts_app/data/data.dart';
 import 'package:workouts_app/domain/entities/exercise_entity.dart';
-import 'package:workouts_app/domain/entities/workout_detail_entity.dart';
 import 'package:workouts_app/domain/entities/workout_entity.dart';
 
 final String vwWkWorkouts = '''
@@ -91,15 +90,6 @@ class WorkoutsSqfliteDs extends WorkoutLocalDs {
   }
 
   @override
-  Future<void> addSet(
-    String workoutId,
-    int exerciseId,
-    List<WorkoutDetail> details,
-  ) async {
-    throw UnimplementedError();
-  }
-
-  @override
   Future<Workout> create(Workout workout) async {
     final db = await DbHandler().getInstance();
 
@@ -182,12 +172,6 @@ class WorkoutsSqfliteDs extends WorkoutLocalDs {
   @override
   Future<Workout> update(Workout workout) {
     // TODO: implement update
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> updateSet(WorkoutDetail detail) {
-    // TODO: implement updateSet
     throw UnimplementedError();
   }
 }

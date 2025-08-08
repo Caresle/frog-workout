@@ -60,12 +60,15 @@ class WorkoutsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// This method is used to add a new set for a given exercise, consider that
+  /// this only will affect the current data in the UI, and not the local db.
+  /// The reason is that we update/create everything after the user press the
+  /// save button.
   Future<void> addSet(
     String workoutId,
     int exerciseId,
     List<WorkoutDetail> details,
   ) async {
-    // _details.addAll();
     final Workout? workout = workouts.cast<Workout?>().firstWhere(
       (w) => w?.id == workoutId,
       orElse: () => null,
@@ -84,6 +87,8 @@ class WorkoutsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  /// This method is used to update a set for a given exercise, consider that
+  /// this only will affect the current data in the UI, and not the local db.
   Future<void> updateSet(WorkoutDetail detail) async {
     final Workout? workout = workouts.cast<Workout?>().firstWhere(
       (w) => w?.id == detail.idWorkout,
@@ -106,12 +111,5 @@ class WorkoutsProvider extends ChangeNotifier {
 
     workouts[index] = workout.copyWith(details: details);
     notifyListeners();
-
-    // ! This is not longer needed because we are going to send
-    // ! the final data to the local db to be saved after all the modifications
-    // ! are done.
-
-    // await _repository.updateSet(detail);
-    // await getAll();
   }
 }
