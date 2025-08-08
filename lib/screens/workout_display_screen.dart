@@ -33,7 +33,7 @@ class WorkoutDisplayScreen extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => WorkoutSessionProvider(
         workout: workout,
-        recordRepository: RecordRepositoryImpl(RecordLocalDsImpl()),
+        recordRepository: RecordRepositoryImpl(RecordSqfliteDs()),
       ),
       child: Scaffold(
         appBar: AppBar(

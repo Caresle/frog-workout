@@ -28,17 +28,13 @@ Future<void> main() async {
         ChangeNotifierProvider(
           create: (_) {
             return ExerciseProvider(
-              // ExerciseRepositoryImpl(ExerciseLocalDsImpl()),
               ExerciseRepositoryImpl(ExerciseSqfliteDs()),
             );
           },
         ),
         ChangeNotifierProvider(
           create: (_) {
-            return WorkoutsProvider(
-              // WorkoutRepositoryImpl(WorkoutLocalDsImpl()),
-              WorkoutRepositoryImpl(WorkoutsSqfliteDs()),
-            );
+            return WorkoutsProvider(WorkoutRepositoryImpl(WorkoutsSqfliteDs()));
           },
         ),
       ],

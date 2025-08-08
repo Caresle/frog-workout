@@ -7,6 +7,7 @@ export './datasources/workouts/workouts_local_ds_impl.dart';
 export './datasources/workouts/workouts_sqflite_ds.dart';
 export './datasources/records/record_local_ds.dart';
 export './datasources/records/record_local_ds_impl.dart';
+export './datasources/records/record_sqflite_ds.dart';
 
 // datasources auth
 export './datasources/auth/auth_remote_ds_impl.dart';

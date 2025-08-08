@@ -47,8 +47,6 @@ class WorkoutSessionProvider extends ChangeNotifier {
       (detail) => detail.isComplete || saveInvalidSets,
     );
 
-    print(detailsToSave.length);
-
     final records = detailsToSave.map((detail) {
       return WorkoutRecordMapper.fromWorkoutDetailUi(detail);
     }).toList();
