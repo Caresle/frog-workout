@@ -27,4 +27,25 @@ class RecordSqfliteDs extends RecordLocalDs {
 
     return records;
   }
+
+  @override
+  Future<List<WorkoutRecord>> getToSync() async {
+    final db = await DbHandler().getInstance();
+
+    final result = await db.query(tableName, where: 'sync_status = 0');
+    final records = result
+        .map((row) => WorkoutRecordMapper.fromJson(row))
+        .toList();
+
+    return records;
+  }
+
+  @override
+  Future<bool> updateSyncStatus() async {
+    final db = await DbHandler().getInstance();
+
+    await db.update(tableName, {'sync_status': 1}, where: 'sync_status = 0');
+
+    return true;
+  }
 }
