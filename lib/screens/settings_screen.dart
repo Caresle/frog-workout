@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:workouts_app/widgets/settings/sync_button.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -77,14 +78,7 @@ class SettingsScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 8),
-              SizedBox(
-                width: size.width - 16,
-                child: FilledButton.icon(
-                  onPressed: () {},
-                  icon: Icon(Icons.sync_rounded),
-                  label: Text('Sync data'),
-                ),
-              ),
+              SyncButton(),
             ],
           ),
         ),
