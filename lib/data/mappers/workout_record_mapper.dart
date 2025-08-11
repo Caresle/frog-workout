@@ -16,6 +16,7 @@ class WorkoutRecordMapper {
       'exercise': record.exercise,
       'exercise_notes': record.exerciseNotes,
       'id_user': record.idUser,
+      'sync_status': record.syncStatus,
     };
   }
 
@@ -41,6 +42,7 @@ class WorkoutRecordMapper {
       exercise: exercise.name,
       exerciseNotes: detail.detail.notes ?? '',
       idUser: '',
+      syncStatus: 0,
     );
   }
 
@@ -59,6 +61,7 @@ class WorkoutRecordMapper {
       exercise: json['exercise'],
       exerciseNotes: json['exercise_notes'],
       idUser: json['id_user'],
+      syncStatus: json['sync_status'] ?? 0,
     );
   }
 }

@@ -17,6 +17,7 @@ export './datasources/auth/auth_local_ds.dart';
 
 // datasources sync
 export './datasources/sync/sync_ds.dart';
+export './datasources/sync/sync_supabase_ds.dart';
 
 // mappers
 export './mappers/exercise_mapper.dart';

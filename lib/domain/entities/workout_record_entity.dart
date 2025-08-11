@@ -12,6 +12,7 @@ class WorkoutRecord {
   final String exercise;
   final String exerciseNotes;
   final String idUser;
+  final int syncStatus;
 
   const WorkoutRecord({
     required this.id,
@@ -27,5 +28,6 @@ class WorkoutRecord {
     required this.exercise,
     required this.exerciseNotes,
     required this.idUser,
+    this.syncStatus = 0,
   });
 }
