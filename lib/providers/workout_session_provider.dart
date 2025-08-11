@@ -43,12 +43,18 @@ class WorkoutSessionProvider extends ChangeNotifier {
   }
 
   Future<void> finishWorkout({saveInvalidSets = false}) async {
+    final exercises = workout.exercises;
+
     final detailsToSave = details.where(
       (detail) => detail.isComplete || saveInvalidSets,
     );
 
     final records = detailsToSave.map((detail) {
-      return WorkoutRecordMapper.fromWorkoutDetailUi(detail);
+      final exercise = exercises.firstWhere(
+        (e) => e.id == detail.detail.idExercise,
+        orElse: () => Exercise.empty(),
+      );
+      return WorkoutRecordMapper.fromWorkoutDetailUi(detail, exercise);
     }).toList();
 
     await recordRepository.create(records);

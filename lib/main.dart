@@ -26,6 +26,10 @@ Future<void> main() async {
           },
         ),
         ChangeNotifierProvider(
+          create: (_) =>
+              RecordProvider(RecordRepositoryImpl(RecordSqfliteDs())),
+        ),
+        ChangeNotifierProvider(
           create: (_) {
             return ExerciseProvider(
               ExerciseRepositoryImpl(ExerciseSqfliteDs()),

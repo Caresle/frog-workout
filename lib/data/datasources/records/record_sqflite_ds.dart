@@ -20,7 +20,7 @@ class RecordSqfliteDs extends RecordLocalDs {
   Future<List<WorkoutRecord>> getAll() async {
     final db = await DbHandler().getInstance();
 
-    final result = await db.query(tableName);
+    final result = await db.query(tableName, orderBy: 'id DESC');
     final records = result
         .map((row) => WorkoutRecordMapper.fromJson(row))
         .toList();
