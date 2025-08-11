@@ -19,7 +19,10 @@ class WorkoutRecordMapper {
     };
   }
 
-  static WorkoutRecord fromWorkoutDetailUi(WorkoutDetailUi detail) {
+  static WorkoutRecord fromWorkoutDetailUi(
+    WorkoutDetailUi detail,
+    Exercise exercise,
+  ) {
     // TODO: implement missing data for workout record
     // startTime, endTime
     return WorkoutRecord(
@@ -32,18 +35,18 @@ class WorkoutRecordMapper {
       setType: detail.detail.setType.name,
       weight: detail.detail.weight,
       reps: detail.detail.reps.toInt(),
-      weightType: '',
+      weightType: exercise.weightType.name,
       setIndex: 0,
       restTime: detail.detail.restTime,
-      exercise: '',
-      exerciseNotes: '',
+      exercise: exercise.name,
+      exerciseNotes: detail.detail.notes ?? '',
       idUser: '',
     );
   }
 
   static WorkoutRecord fromJson(Map<String, dynamic> json) {
     return WorkoutRecord(
-      id: json['id'],
+      id: json['id'].toString(),
       workoutName: json['workout_name'],
       startTime: DateTime.parse(json['start_time']),
       endTime: DateTime.parse(json['end_time']),
