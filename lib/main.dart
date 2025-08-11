@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:workouts_app/config/config.dart';
 import 'package:workouts_app/data/data.dart';
@@ -6,6 +7,7 @@ import 'package:workouts_app/providers/providers.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
 
   final initialized = await DbHandler().init();
   if (!initialized) {
