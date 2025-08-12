@@ -33,6 +33,7 @@ class RecordSqfliteDs extends RecordLocalDs {
     final db = await DbHandler().getInstance();
 
     final result = await db.query(tableName, where: 'sync_status = 0');
+
     final records = result
         .map((row) => WorkoutRecordMapper.fromJson(row))
         .toList();
