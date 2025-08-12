@@ -48,7 +48,10 @@ class ExerciseDisplayItem extends StatelessWidget {
                       WrapperCell(
                         isComplete: isComplete,
                         isFirst: true,
-                        child: SetTypeDisplay(detail: detail),
+                        child: SetTypeDisplay(
+                          detail: detail,
+                          setType: detail.setType,
+                        ),
                       ),
                       WrapperCell(
                         isComplete: isComplete,

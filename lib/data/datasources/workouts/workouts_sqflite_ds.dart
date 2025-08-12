@@ -122,6 +122,7 @@ class WorkoutsSqfliteDs extends WorkoutLocalDs {
       values.remove('id');
       values['id_workout'] = newWorkout.id;
       values['set_index'] = index;
+
       await db.insert(tableDetails, values);
     }
 

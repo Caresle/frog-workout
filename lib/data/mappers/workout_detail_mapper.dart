@@ -10,6 +10,7 @@ class WorkoutDetailMapper {
 
     final weight = double.tryParse(json['weight'].toString());
     final reps = double.tryParse(json['reps'].toString());
+    final restTime = int.tryParse(json['rest_time'].toString());
 
     return WorkoutDetail(
       id: json['id'].toString(),
@@ -19,6 +20,7 @@ class WorkoutDetailMapper {
       weight: weight ?? 0,
       reps: reps ?? 0,
       notes: json['notes'],
+      restTime: restTime ?? 0,
     );
   }
 
@@ -30,6 +32,7 @@ class WorkoutDetailMapper {
       'set_type': detail.setType.name,
       'weight': detail.weight,
       'reps': detail.reps,
+      'rest_time': detail.restTime,
       'notes': detail.notes,
     };
   }
