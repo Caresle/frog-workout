@@ -47,3 +47,7 @@ export './measures/measures_list.dart';
 export './settings/sync_button.dart';
 export './settings/theme_switcher.dart';
 export './settings/export_data_button.dart';
+
+// statistics
+export './statistics/select_exercise_alert.dart';
+export './statistics/show_statistics_of_exercise.dart';
