@@ -64,4 +64,8 @@ class WorkoutRecord {
       syncStatus: syncStatus ?? this.syncStatus,
     );
   }
+
+  String toCsv() {
+    return '$id,$workoutName,$startTime,$endTime,$setType,$weight,$reps,$weightType,$setIndex,$restTime,$exercise,$exerciseNotes,$idUser,$syncStatus';
+  }
 }

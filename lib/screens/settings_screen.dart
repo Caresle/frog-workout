@@ -52,14 +52,7 @@ class SettingsScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 16),
-              SizedBox(
-                width: size.width - 16,
-                child: FilledButton.tonalIcon(
-                  onPressed: () {},
-                  icon: Icon(Icons.ios_share_rounded),
-                  label: Text('Export data'),
-                ),
-              ),
+              ExportDataButton(),
               const SizedBox(height: 8),
               SizedBox(
                 width: size.width - 16,
