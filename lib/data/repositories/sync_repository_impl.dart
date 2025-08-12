@@ -15,4 +15,9 @@ class SyncRepositoryImpl extends SyncRepository {
   Future<bool> syncWorkouts(List<Workout> workouts) {
     return _repository.syncWorkouts(workouts);
   }
+
+  @override
+  Future<bool> syncExercises(List<Exercise> exercises) {
+    return _repository.syncExercises(exercises);
+  }
 }

@@ -5,4 +5,5 @@ abstract class ExerciseLocalDs {
   Future<Exercise> update(Exercise exercise);
   Future<Exercise> delete(Exercise exercise);
   Future<List<Exercise>> getAll();
+  Future<List<Exercise>> getToSync();
 }

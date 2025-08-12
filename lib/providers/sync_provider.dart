@@ -13,4 +13,8 @@ class SyncProvider extends ChangeNotifier {
   Future<bool> syncWorkouts(List<Workout> workouts) async {
     return _repository.syncWorkouts(workouts);
   }
+
+  Future<bool> syncExercises(List<Exercise> exercises) async {
+    return _repository.syncExercises(exercises);
+  }
 }

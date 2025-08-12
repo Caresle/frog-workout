@@ -5,4 +5,5 @@ abstract class ExerciseRepository {
   Future<Exercise> create(Exercise exercise);
   Future<Exercise> update(Exercise exercise);
   Future<Exercise> delete(Exercise exercise);
+  Future<List<Exercise>> getToSync();
 }
