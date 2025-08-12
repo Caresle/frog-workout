@@ -30,6 +30,18 @@ class SyncButton extends StatelessWidget {
                     onPressed: () async {
                       final recordProvider = context.read<RecordProvider>();
                       final syncProvider = context.read<SyncProvider>();
+
+                      final toSync = await recordProvider.getRecordsToSync();
+
+                      final isSyncSuccessfully = await syncProvider
+                          .syncWorkoutsRecords(toSync);
+                      if (!isSyncSuccessfully) {
+                        return;
+                      }
+
+                      await recordProvider.updateSyncStatus();
+                      if (!context.mounted) return;
+                      Navigator.of(context).pop();
                     },
                     child: Text('Sync'),
                   ),

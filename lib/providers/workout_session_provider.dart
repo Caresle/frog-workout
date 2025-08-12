@@ -55,7 +55,9 @@ class WorkoutSessionProvider extends ChangeNotifier {
         (e) => e.id == detail.detail.idExercise,
         orElse: () => Exercise.empty(),
       );
-      return WorkoutRecordMapper.fromWorkoutDetailUi(detail, exercise);
+      final record = WorkoutRecordMapper.fromWorkoutDetailUi(detail, exercise);
+
+      return record.copyWith(workoutName: workout.name);
     }).toList();
 
     await recordRepository.create(records);

@@ -7,11 +7,15 @@ class SyncSupabaseDs extends SyncDs {
 
   @override
   Future<bool> syncWorkoutsRecords(List<WorkoutRecord> records) async {
+    if (records.isEmpty) return true;
     final client = SupabaseHandler().getInstance();
     List<Map<String, dynamic>> values = [];
 
     for (var record in records) {
       final value = WorkoutRecordMapper.toJson(record);
+      value.remove('id');
+      value.remove('sync_status');
+      value['id_user'] = 0;
       values.add(value);
     }
 
