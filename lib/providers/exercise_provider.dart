@@ -30,23 +30,6 @@ class ExerciseProvider extends ChangeNotifier {
       print(e);
       notifyListeners();
     }
-    // TODO: Implementes later, right now the local insertion
-    // to the database is fast enough
-    // final previousExercise = List<Exercise>.from(_exercises);
-    // _exercises.add(exercise);
-
-    // notifyListeners();
-
-    // try {
-    //   final created = await _repository.create(exercise);
-    //   final index = _exercises.indexWhere((e) => e.id == exercise.id);
-
-    //   _exercises[index] = created;
-    //   notifyListeners();
-    // } catch (e) {
-    //   _exercises = previousExercise;
-    //   notifyListeners();
-    // }
   }
 
   Future<void> update(Exercise exercise) async {
@@ -64,19 +47,10 @@ class ExerciseProvider extends ChangeNotifier {
     final exercises = await _repository.getAll();
     _exercises = exercises;
     notifyListeners();
+  }
 
-    // TODO: Implementes later, right now the local insertion
-    // to the database is fast enough
-    // final previousExercises = List<Exercise>.from(_exercises);
-    // _exercises.removeWhere((e) => e.id == exercise.id);
-
-    // notifyListeners();
-
-    // try {
-    //   await _repository.delete(exercise);
-    // } catch (e) {
-    //   _exercises = previousExercises;
-    //   notifyListeners();
-    // }
+  Future<List<Exercise>> getToSync() async {
+    await _repository.getToSync();
+    return _repository.getToSync();
   }
 }

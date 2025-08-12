@@ -54,4 +54,16 @@ class ExerciseSqfliteDs extends ExerciseLocalDs {
 
     return Future.value(exercise);
   }
+
+  @override
+  Future<List<Exercise>> getToSync() async {
+    final db = await DbHandler().getInstance();
+
+    final result = await db.query(tableName, where: 'id_user is not null');
+
+    final exercises = result
+        .map((row) => ExerciseMapper.fromJson(row))
+        .toList();
+    return exercises;
+  }
 }

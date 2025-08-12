@@ -25,4 +25,9 @@ class ExerciseRepositoryImpl extends ExerciseRepository {
   Future<Exercise> update(Exercise exercise) {
     return _exerciseLocalDsImpl.update(exercise);
   }
+
+  @override
+  Future<List<Exercise>> getToSync() {
+    return _exerciseLocalDsImpl.getToSync();
+  }
 }
