@@ -45,3 +45,4 @@ export './measures/measures_list.dart';
 
 // settings
 export './settings/sync_button.dart';
+export './settings/theme_switcher.dart';

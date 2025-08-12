@@ -46,6 +46,7 @@ Future<void> main() async {
         ChangeNotifierProvider(
           create: (_) => SyncProvider(SyncRepositoryImpl(SyncSupabaseDs())),
         ),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ],
       child: MyApp(),
     ),
@@ -57,6 +58,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = context.watch<ThemeProvider>().isDark;
+
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Frog Workouts',
@@ -64,7 +67,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blueGrey,
-          brightness: Brightness.dark,
+          brightness: isDark ? Brightness.dark : Brightness.light,
         ),
         useMaterial3: true,
       ),
