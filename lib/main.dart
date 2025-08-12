@@ -47,6 +47,7 @@ Future<void> main() async {
           create: (_) => SyncProvider(SyncRepositoryImpl(SyncSupabaseDs())),
         ),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => StatisticsProvider()),
       ],
       child: MyApp(),
     ),
