@@ -25,17 +25,14 @@ class ProgressDashboardCards extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return SizedBox(
-      width: size.width - 16,
-      height: 200,
-      child: ListView.builder(
-        itemCount: dashboardCards.length,
-        itemBuilder: (context, index) {
-          final dashboardCard = dashboardCards[index];
-          return _DashboardCard(dashboardCard: dashboardCard);
-        },
-      ),
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: dashboardCards.length,
+      itemBuilder: (context, index) {
+        final dashboardCard = dashboardCards[index];
+        return _DashboardCard(dashboardCard: dashboardCard);
+      },
     );
   }
 }
