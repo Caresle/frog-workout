@@ -8,7 +8,9 @@ class SyncButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-
+    final recordProvider = context.read<RecordProvider>();
+    final syncProvider = context.read<SyncProvider>();
+    final workoutProvider = context.read<WorkoutsProvider>();
     return SizedBox(
       width: size.width - 16,
       child: FilledButton.icon(
@@ -28,18 +30,21 @@ class SyncButton extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () async {
-                      final recordProvider = context.read<RecordProvider>();
-                      final syncProvider = context.read<SyncProvider>();
+                      await workoutProvider.getAll();
+                      final workouts = workoutProvider.workouts;
 
                       final toSync = await recordProvider.getRecordsToSync();
 
                       final isSyncSuccessfully = await syncProvider
                           .syncWorkoutsRecords(toSync);
+
                       if (!isSyncSuccessfully) {
                         return;
                       }
 
                       await recordProvider.updateSyncStatus();
+                      await syncProvider.syncWorkouts(workouts);
+
                       if (!context.mounted) return;
                       Navigator.of(context).pop();
                     },

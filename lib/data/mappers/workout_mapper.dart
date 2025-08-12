@@ -46,6 +46,7 @@ class WorkoutMapper {
   static Map<String, dynamic> toJson(Workout workout) {
     return {
       'id': workout.id,
+      'id_user': workout.idUser,
       'name': workout.name,
       'created_at': workout.createdAt.toString(),
     };
