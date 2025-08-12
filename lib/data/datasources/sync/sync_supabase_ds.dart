@@ -5,6 +5,7 @@ import 'package:workouts_app/domain/domain.dart';
 class SyncSupabaseDs extends SyncDs {
   final String _tableRecord = 'tbl_wk_records';
   final String _tableWorkout = 'tbl_wk_workouts';
+  final String _tableExercise = 'tbl_wk_exercises';
 
   @override
   Future<bool> syncWorkoutsRecords(List<WorkoutRecord> records) async {
@@ -37,6 +38,22 @@ class SyncSupabaseDs extends SyncDs {
     }
 
     await client.from(_tableWorkout).insert(values);
+
+    return true;
+  }
+
+  @override
+  Future<bool> syncExercises(List<Exercise> exercises) async {
+    final client = SupabaseHandler().getInstance();
+    List<Map<String, dynamic>> values = [];
+
+    for (var exercise in exercises) {
+      final value = ExerciseMapper.toJson(exercise);
+      value.remove('id');
+      values.add(value);
+    }
+
+    await client.from(_tableExercise).insert(values);
 
     return true;
   }
