@@ -51,3 +51,4 @@ export './settings/export_data_button.dart';
 // statistics
 export './statistics/select_exercise_alert.dart';
 export './statistics/show_statistics_of_exercise.dart';
+export './statistics/chart_condition_selector.dart';

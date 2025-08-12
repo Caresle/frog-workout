@@ -57,6 +57,7 @@ class RecordSqfliteDs extends RecordLocalDs {
     final result = await db.query(
       tableName,
       where: 'exercise = ?',
+      orderBy: 'id DESC',
       whereArgs: [exercise.name],
     );
 
