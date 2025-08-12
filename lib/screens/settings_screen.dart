@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:workouts_app/widgets/settings/sync_button.dart';
+import 'package:workouts_app/widgets/widgets.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -41,15 +41,7 @@ class SettingsScreen extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 16),
-              Row(
-                children: [
-                  Icon(Icons.brightness_6_rounded),
-                  const SizedBox(width: 8),
-                  Text('Dark mode'),
-                  const Spacer(),
-                  Switch(value: true, onChanged: (value) {}),
-                ],
-              ),
+              ThemeSwitcher(),
               Row(
                 children: [
                   Icon(Icons.timer_rounded),
