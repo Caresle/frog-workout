@@ -5,4 +5,5 @@ abstract class RecordLocalDs {
   Future<List<WorkoutRecord>> getAll();
   Future<List<WorkoutRecord>> getToSync();
   Future<bool> updateSyncStatus();
+  Future<List<WorkoutRecord>> getByExercise(Exercise exercise);
 }

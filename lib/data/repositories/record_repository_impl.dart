@@ -25,4 +25,9 @@ class RecordRepositoryImpl extends RecordRepository {
   Future<bool> updateSyncStatus() {
     return _repository.updateSyncStatus();
   }
+
+  @override
+  Future<List<WorkoutRecord>> getByExercise(Exercise exercise) {
+    return _repository.getByExercise(exercise);
+  }
 }

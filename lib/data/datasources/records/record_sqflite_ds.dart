@@ -1,6 +1,6 @@
 import 'package:workouts_app/config/config.dart';
 import 'package:workouts_app/data/data.dart';
-import 'package:workouts_app/domain/entities/workout_record_entity.dart';
+import 'package:workouts_app/domain/domain.dart';
 
 class RecordSqfliteDs extends RecordLocalDs {
   final tableName = "tbl_wk_records";
@@ -48,5 +48,22 @@ class RecordSqfliteDs extends RecordLocalDs {
     await db.update(tableName, {'sync_status': 1}, where: 'sync_status = 0');
 
     return true;
+  }
+
+  @override
+  Future<List<WorkoutRecord>> getByExercise(Exercise exercise) async {
+    final db = await DbHandler().getInstance();
+
+    final result = await db.query(
+      tableName,
+      where: 'exercise = ?',
+      whereArgs: [exercise.name],
+    );
+
+    final records = result
+        .map((row) => WorkoutRecordMapper.fromJson(row))
+        .toList();
+
+    return records;
   }
 }
