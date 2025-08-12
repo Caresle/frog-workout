@@ -23,6 +23,9 @@ final String vwWkWorkouts = '''
     join tbl_wk_workouts_exercises we on we.id_workout = w.id 
     join tbl_wk_exercises e on e.id = we.id_exercise
     group by w.id
+  ), details_computed as (
+	  select * from tbl_wk_workouts_det
+	  order by id_exercise, set_index
   ), details_ds as (
     select
       w.id,
@@ -40,7 +43,7 @@ final String vwWkWorkouts = '''
           )
         ) details
     from workouts_ds w
-    join tbl_wk_workouts_det wd on wd.id_workout = w.id
+    join details_computed wd on wd.id_workout = w.id
     group by w.id
   )
   select
@@ -111,10 +114,14 @@ class WorkoutsSqfliteDs extends WorkoutLocalDs {
       whereArgs: [workout.id],
     );
 
-    for (var detail in newWorkout.details) {
+    for (var item in newWorkout.details.asMap().entries) {
+      final index = item.key;
+      final detail = item.value;
+
       final values = WorkoutDetailMapper.toJson(detail);
       values.remove('id');
       values['id_workout'] = newWorkout.id;
+      values['set_index'] = index;
       await db.insert(tableDetails, values);
     }
 
