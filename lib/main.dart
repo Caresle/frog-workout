@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'package:workouts_app/config/config.dart';
 import 'package:workouts_app/data/data.dart';
@@ -7,7 +6,8 @@ import 'package:workouts_app/providers/providers.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load();
+  await Environment.initEnvironment();
+  await SupabaseHandler.init();
 
   final initialized = await DbHandler().init();
   if (!initialized) {
@@ -42,6 +42,9 @@ Future<void> main() async {
           create: (_) {
             return WorkoutsProvider(WorkoutRepositoryImpl(WorkoutsSqfliteDs()));
           },
+        ),
+        ChangeNotifierProvider(
+          create: (_) => SyncProvider(SyncRepositoryImpl(SyncSupabaseDs())),
         ),
       ],
       child: MyApp(),

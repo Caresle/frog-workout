@@ -16,4 +16,12 @@ class RecordProvider extends ChangeNotifier {
     isLoading = false;
     notifyListeners();
   }
+
+  Future<List<WorkoutRecord>> getRecordsToSync() async {
+    return _repository.getToSync();
+  }
+
+  Future<void> updateSyncStatus() async {
+    await _repository.updateSyncStatus();
+  }
 }

@@ -55,7 +55,8 @@ final String recordsTable = '''
     rest_time integer null,
     exercise varchar(255) null,
     exercise_notes varchar(255) null,
-    id_user varchar(255) null
+    id_user varchar(255) null,
+    sync_status integer null
   );
 ''';
 

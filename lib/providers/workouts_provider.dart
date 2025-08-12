@@ -137,23 +137,18 @@ class WorkoutsProvider extends ChangeNotifier {
 
   Future<void> udpateRestTime(
     int restTimeInSeconds,
-    List<WorkoutDetail> details,
+    Workout workout,
+    Exercise exercise,
   ) async {
-    final Workout? workout = workouts.cast<Workout?>().firstWhere(
-      (w) => w?.id == details.firstOrNull?.idWorkout,
-      orElse: () => null,
-    );
-
-    if (workout == null) {
-      return;
-    }
-
     final index = workouts.indexWhere((w) => w.id == workout.id);
 
     List<WorkoutDetail> newDetails = List.from(workout.details);
-    newDetails = newDetails
-        .map((detail) => detail.copyWith(restTime: restTimeInSeconds))
-        .toList();
+    newDetails = newDetails.map((detail) {
+      if (detail.idExercise == exercise.id) {
+        return detail.copyWith(restTime: restTimeInSeconds);
+      }
+      return detail;
+    }).toList();
 
     workouts[index] = workout.copyWith(details: newDetails);
     notifyListeners();

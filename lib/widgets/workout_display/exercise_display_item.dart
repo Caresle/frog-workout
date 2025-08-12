@@ -22,6 +22,8 @@ class ExerciseDisplayItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final workoutSessionProvider = context.read<WorkoutSessionProvider>();
+
     return Card(
       child: ListTile(
         title: _Header(exercise: exercise),
@@ -48,13 +50,29 @@ class ExerciseDisplayItem extends StatelessWidget {
                       WrapperCell(
                         isComplete: isComplete,
                         isFirst: true,
-                        child: SetTypeDisplay(detail: detail),
+                        child: SetTypeDisplay(
+                          detail: detail,
+                          setType: detail.setType,
+                        ),
                       ),
                       WrapperCell(
                         isComplete: isComplete,
                         child: TextFormField(
                           initialValue: '${detail.weight}',
                           textAlign: TextAlign.center,
+                          onChanged: (value) {
+                            if (value.isEmpty) return;
+
+                            final newDetail = detail.copyWith(
+                              weight: double.parse(value),
+                            );
+                            workoutSessionProvider.updateDetails(
+                              WorkoutDetailUi(
+                                detail: newDetail,
+                                isComplete: isComplete,
+                              ),
+                            );
+                          },
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             hintText: '0',
@@ -70,6 +88,19 @@ class ExerciseDisplayItem extends StatelessWidget {
                       WrapperCell(
                         isComplete: isComplete,
                         child: TextFormField(
+                          onChanged: (value) {
+                            if (value.isEmpty) return;
+
+                            final newDetail = detail.copyWith(
+                              reps: double.parse(value),
+                            );
+                            workoutSessionProvider.updateDetails(
+                              WorkoutDetailUi(
+                                detail: newDetail,
+                                isComplete: isComplete,
+                              ),
+                            );
+                          },
                           initialValue: '${detail.reps}',
                           textAlign: TextAlign.center,
                           decoration: InputDecoration(
@@ -91,24 +122,17 @@ class ExerciseDisplayItem extends StatelessWidget {
                           value: isComplete,
                           onChanged: (_) {
                             if (isComplete) {
-                              context
-                                  .read<WorkoutSessionProvider>()
-                                  .updateDetails(
-                                    WorkoutDetailUi(
-                                      detail: detail,
-                                      isComplete: false,
-                                    ),
-                                  );
+                              workoutSessionProvider.updateDetails(
+                                WorkoutDetailUi(
+                                  detail: detail,
+                                  isComplete: false,
+                                ),
+                              );
                               return;
                             }
-                            context
-                                .read<WorkoutSessionProvider>()
-                                .updateDetails(
-                                  WorkoutDetailUi(
-                                    detail: detail,
-                                    isComplete: true,
-                                  ),
-                                );
+                            workoutSessionProvider.updateDetails(
+                              WorkoutDetailUi(detail: detail, isComplete: true),
+                            );
                             onStartTimer?.call(detail.restTime);
                           },
                         ),

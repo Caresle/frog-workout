@@ -13,4 +13,16 @@ class RecordLocalDsImpl extends RecordLocalDs {
     // TODO: implement getAll
     throw UnimplementedError();
   }
+
+  @override
+  Future<List<WorkoutRecord>> getToSync() {
+    // TODO: implement getToSync
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> updateSyncStatus() {
+    // TODO: implement updateSyncStatus
+    throw UnimplementedError();
+  }
 }

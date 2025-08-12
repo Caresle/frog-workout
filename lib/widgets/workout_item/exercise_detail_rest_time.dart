@@ -75,7 +75,8 @@ class _ExerciseDetailRestTimeState extends State<ExerciseDetailRestTime> {
                       onPressed: () async {
                         await workoutProvider.udpateRestTime(
                           _duration.inSeconds,
-                          details,
+                          widget.workout,
+                          widget.exercise,
                         );
 
                         _duration = Duration.zero;

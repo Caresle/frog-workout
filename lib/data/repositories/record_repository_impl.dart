@@ -15,4 +15,14 @@ class RecordRepositoryImpl extends RecordRepository {
   Future<List<WorkoutRecord>> getAll() {
     return _repository.getAll();
   }
+
+  @override
+  Future<List<WorkoutRecord>> getToSync() {
+    return _repository.getToSync();
+  }
+
+  @override
+  Future<bool> updateSyncStatus() {
+    return _repository.updateSyncStatus();
+  }
 }

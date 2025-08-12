@@ -24,11 +24,12 @@ class WorkoutSessionProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void updateDetails(WorkoutDetailUi detail) {
-    final index = details.indexWhere((d) => d.detail.id == detail.detail.id);
+  void updateDetails(WorkoutDetailUi item) {
+    final index = details.indexWhere((d) => d.detail.id == item.detail.id);
+
     if (index == -1) return;
 
-    details[index] = detail;
+    details[index] = item;
     notifyListeners();
   }
 
@@ -54,7 +55,9 @@ class WorkoutSessionProvider extends ChangeNotifier {
         (e) => e.id == detail.detail.idExercise,
         orElse: () => Exercise.empty(),
       );
-      return WorkoutRecordMapper.fromWorkoutDetailUi(detail, exercise);
+      final record = WorkoutRecordMapper.fromWorkoutDetailUi(detail, exercise);
+
+      return record.copyWith(workoutName: workout.name);
     }).toList();
 
     await recordRepository.create(records);
