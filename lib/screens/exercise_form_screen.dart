@@ -90,9 +90,6 @@ class _ExerciseFormScreenState extends State<ExerciseFormScreen> {
                     weightType: _weightType,
                   );
 
-                  // final callback = widget.id == -1
-                  //     ? exerciseProvider.create(exercise)
-                  //     : exerciseProvider.update(exercise);
                   final callback = widget.id == -1
                       ? exerciseProvider.create
                       : exerciseProvider.update;
@@ -101,10 +98,6 @@ class _ExerciseFormScreenState extends State<ExerciseFormScreen> {
 
                   if (!context.mounted) return;
                   context.pop();
-
-                  // callback.catchError((error) {
-                  //   print(error);
-                  // });
                 },
                 child: Row(
                   children: [

@@ -5,4 +5,6 @@ abstract class RecordRepository {
   Future<void> create(List<WorkoutRecord> records);
   Future<List<WorkoutRecord>> getToSync();
   Future<bool> updateSyncStatus();
+
+  Future<List<WorkoutRecord>> getByExercise(Exercise exercise);
 }

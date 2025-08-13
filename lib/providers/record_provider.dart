@@ -24,4 +24,8 @@ class RecordProvider extends ChangeNotifier {
   Future<void> updateSyncStatus() async {
     await _repository.updateSyncStatus();
   }
+
+  Future<List<WorkoutRecord>> getRecordsByExercise(Exercise exercise) async {
+    return _repository.getByExercise(exercise);
+  }
 }

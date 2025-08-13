@@ -31,50 +31,50 @@ class _ProgressWorkoutListState extends State<ProgressWorkoutList> {
     final recordProvider = context.watch<RecordProvider>();
 
     if (recordProvider.isLoading) {
-      return Flexible(child: const Center(child: CircularProgressIndicator()));
+      return const Center(child: CircularProgressIndicator());
     }
 
-    return Flexible(
-      child: ListView.builder(
-        itemCount: recordProvider.records.length,
-        itemBuilder: (context, index) {
-          final record = recordProvider.records[index];
-          return Card(
-            clipBehavior: Clip.hardEdge,
-            child: ListTile(
-              title: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Icon(Icons.fitness_center_rounded),
-                      const SizedBox(width: 8),
-                      Text(record.exercise),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Text(record.weight.toString()),
-                          Text(record.weightType.toUpperCase()),
-                          const SizedBox(width: 2),
-                          Text('x'),
-                          const SizedBox(width: 2),
-                          Text(record.reps.toString()),
-                        ],
-                      ),
-                      Text(record.setType.toUpperCase()),
-                    ],
-                  ),
-                ],
-              ),
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: recordProvider.records.length,
+      itemBuilder: (context, index) {
+        final record = recordProvider.records[index];
+        return Card(
+          clipBehavior: Clip.hardEdge,
+          child: ListTile(
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Icon(Icons.fitness_center_rounded),
+                    const SizedBox(width: 8),
+                    Text(record.exercise),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Text(record.weight.toString()),
+                        Text(record.weightType.toUpperCase()),
+                        const SizedBox(width: 2),
+                        Text('x'),
+                        const SizedBox(width: 2),
+                        Text(record.reps.toString()),
+                      ],
+                    ),
+                    Text(record.setType.toUpperCase()),
+                  ],
+                ),
+              ],
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
