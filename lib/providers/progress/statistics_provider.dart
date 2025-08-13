@@ -8,8 +8,16 @@ class StatisticsProvider extends ChangeNotifier {
   bool isLoading = false;
   List<StatisticsCondition> conditions = [
     StatisticsCondition(name: 'Reps', isSelected: true),
-    StatisticsCondition(name: 'Weight', isSelected: false),
-    StatisticsCondition(name: 'Rest time', isSelected: false),
+    StatisticsCondition(
+      name: 'Weight',
+      isSelected: false,
+      type: StatisticsConditionType.weight,
+    ),
+    StatisticsCondition(
+      name: 'Rest time',
+      isSelected: false,
+      type: StatisticsConditionType.restTime,
+    ),
   ];
 
   Future<void> updateExercise(
