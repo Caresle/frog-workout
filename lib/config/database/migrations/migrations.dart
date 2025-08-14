@@ -65,7 +65,8 @@ final String measuresTable = '''
     id integer primary key autoincrement,
     name varchar(255) not null,
     description varchar(255),
-    value double not null
+    value double not null,
+    created_at datetime not null
   );
 ''';
 
