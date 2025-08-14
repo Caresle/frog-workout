@@ -48,6 +48,10 @@ Future<void> main() async {
         ),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => StatisticsProvider()),
+        ChangeNotifierProvider(
+          create: (_) =>
+              MeasuresProvider(MeasuresRepositoryImpl(MeasuresSqfliteDs())),
+        ),
       ],
       child: MyApp(),
     ),
