@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:workouts_app/widgets/widgets.dart';
 
 class MeasuresScreen extends StatelessWidget {
@@ -9,13 +10,19 @@ class MeasuresScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Measures'),
-        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.add))],
+        actions: [
+          IconButton(
+            onPressed: () {
+              context.push('/progress/measures/form');
+            },
+            icon: const Icon(Icons.add),
+          ),
+        ],
       ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: ListView(
             children: [
               const Text('Overview (placeholder chart)'),
               const SizedBox(height: 8),

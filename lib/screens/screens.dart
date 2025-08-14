@@ -12,3 +12,6 @@ export './progress_screen.dart';
 export './progress/statistics_screen.dart';
 export './progress/measures_screen.dart';
 export './progress/calendar_screen.dart';
+
+// measures
+export './progress/measures/measure_form_screen.dart';

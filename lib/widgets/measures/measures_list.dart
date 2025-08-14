@@ -5,23 +5,23 @@ class MeasuresList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: ListView.builder(
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Row(
-              children: [
-                const Text('Measure'),
-                const SizedBox(width: 8),
-                Text('100'),
-                const Spacer(),
-                IconButton(onPressed: () {}, icon: Icon(Icons.delete_rounded)),
-              ],
-            ),
-          );
-        },
-      ),
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: 10,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Row(
+            children: [
+              const Text('Measure'),
+              const SizedBox(width: 8),
+              Text('100'),
+              const Spacer(),
+              IconButton(onPressed: () {}, icon: Icon(Icons.delete_rounded)),
+            ],
+          ),
+        );
+      },
     );
   }
 }
