@@ -67,6 +67,13 @@ final progressRoutes = <MenuItem>[
     widgetPage: MeasuresScreen(),
   ),
   const MenuItem(
+    name: 'Measures Form',
+    path: '/progress/measures/form',
+    icon: Icons.area_chart_rounded,
+    isBottom: false,
+    widgetPage: MeasureFormScreen(),
+  ),
+  const MenuItem(
     name: 'Calendar',
     path: '/progress/calendar',
     icon: Icons.area_chart_rounded,

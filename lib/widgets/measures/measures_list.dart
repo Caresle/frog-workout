@@ -1,27 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:workouts_app/providers/providers.dart';
+import 'package:workouts_app/widgets/widgets.dart';
 
 class MeasuresList extends StatelessWidget {
   const MeasuresList({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      child: ListView.builder(
-        itemCount: 10,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Row(
-              children: [
-                const Text('Measure'),
-                const SizedBox(width: 8),
-                Text('100'),
-                const Spacer(),
-                IconButton(onPressed: () {}, icon: Icon(Icons.delete_rounded)),
-              ],
-            ),
-          );
-        },
-      ),
+    final measures = context.watch<MeasuresProvider>().measures;
+
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: measures.length,
+      itemBuilder: (context, index) {
+        final measure = measures[index];
+        return MeasureCard(measure: measure);
+      },
     );
   }
 }

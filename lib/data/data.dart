@@ -6,6 +6,8 @@ export './datasources/workouts/workouts_local_ds_impl.dart';
 export './datasources/workouts/workouts_sqflite_ds.dart';
 export './datasources/records/record_local_ds.dart';
 export './datasources/records/record_sqflite_ds.dart';
+export './datasources/measures/measures_local_ds.dart';
+export './datasources/measures/measures_sqflite_ds.dart';
 
 // datasources auth
 export './datasources/auth/auth_remote_ds_impl.dart';
@@ -22,6 +24,7 @@ export './mappers/exercise_mapper.dart';
 export './mappers/workout_record_mapper.dart';
 export './mappers/workout_mapper.dart';
 export './mappers/workout_detail_mapper.dart';
+export './mappers/measure_mapper.dart';
 
 // repositories
 export './repositories/exercise_repository_impl.dart';
@@ -29,3 +32,4 @@ export './repositories/workout_repository_impl.dart';
 export './repositories/record_repository_impl.dart';
 export './repositories/auth_repository_impl.dart';
 export './repositories/sync_repository_impl.dart';
+export './repositories/measures_repository_impl.dart';
