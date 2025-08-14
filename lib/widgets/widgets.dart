@@ -44,6 +44,12 @@ export './progress/progress_general_chart.dart';
 export './measures/measures_list.dart';
 export './measures/measure_card.dart';
 
+// calendar
+export './calendar/calendar_streak_info.dart';
+export './calendar/calendar_header.dart';
+export './calendar/calendar_day.dart';
+export './calendar/calendar_content.dart';
+
 // settings
 export './settings/sync_button.dart';
 export './settings/theme_switcher.dart';
