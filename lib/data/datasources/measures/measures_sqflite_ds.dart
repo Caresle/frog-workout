@@ -30,7 +30,7 @@ class MeasuresSqfliteDs extends MeasuresLocalDs {
   Future<List<Measures>> getAll() async {
     final db = await DbHandler().getInstance();
 
-    final result = await db.query(tableName);
+    final result = await db.query(tableName, orderBy: 'created_at desc');
     final measures = result.map((row) => MeasureMapper.fromJson(row)).toList();
 
     return measures;

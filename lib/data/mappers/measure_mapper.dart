@@ -7,6 +7,7 @@ class MeasureMapper {
       'name': measures.name,
       'description': measures.description,
       'value': measures.value,
+      'created_at': measures.date.toString(),
     };
   }
 
@@ -16,6 +17,7 @@ class MeasureMapper {
       name: json['name'],
       description: json['description'],
       value: json['value'],
+      date: DateTime.parse(json['created_at']),
     );
   }
 }
