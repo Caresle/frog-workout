@@ -1,9 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'package:workouts_app/providers/providers.dart';
 import 'package:workouts_app/widgets/widgets.dart';
 
-class MeasuresScreen extends StatelessWidget {
+class MeasuresScreen extends StatefulWidget {
   const MeasuresScreen({super.key});
+
+  @override
+  State<MeasuresScreen> createState() => _MeasuresScreenState();
+}
+
+class _MeasuresScreenState extends State<MeasuresScreen> {
+  bool _isInit = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_isInit) return;
+
+    _isInit = true;
+    Future.microtask(() {
+      if (!mounted) return;
+
+      final provider = Provider.of<MeasuresProvider>(context, listen: false);
+      provider.getMeasures();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

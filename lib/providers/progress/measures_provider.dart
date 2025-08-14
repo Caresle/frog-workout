@@ -16,7 +16,7 @@ class MeasuresProvider extends ChangeNotifier {
 
   Future<void> deleteMeasure(Measures measures) async {
     await _repository.deleteMeasure(measures);
-    notifyListeners();
+    await getMeasures();
   }
 
   Future<void> getMeasures() async {
