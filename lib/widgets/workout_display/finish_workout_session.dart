@@ -48,7 +48,6 @@ class FinishWorkoutSession extends StatelessWidget {
                 onPressed: () async {
                   await workoutSession.finishWorkout(saveInvalidSets: true);
 
-                  print('save invalid sets');
                   if (context.mounted) {
                     context.go('/');
                   }
@@ -61,7 +60,6 @@ class FinishWorkoutSession extends StatelessWidget {
                   await workoutSession.finishWorkout(saveInvalidSets: false);
 
                   if (context.mounted) {
-                    print('save invalid sets');
                     context.go('/');
                   }
                 },

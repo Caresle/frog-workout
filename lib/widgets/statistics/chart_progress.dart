@@ -104,8 +104,6 @@ class ChartProgress extends StatelessWidget {
     final condition = provider.conditions.firstWhere((c) => c.isSelected);
     final size = MediaQuery.of(context).size;
 
-    print(condition.type.name);
-
     return SizedBox(
       width: size.width - 16,
       child: Stack(
