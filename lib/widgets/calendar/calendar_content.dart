@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:workouts_app/providers/providers.dart';
 import 'package:workouts_app/widgets/widgets.dart';
 
 class CalendarContent extends StatelessWidget {
@@ -18,8 +20,7 @@ class CalendarContent extends StatelessWidget {
     );
   }
 
-  List<TableRow> getDayTable() {
-    final now = DateTime.now();
+  List<TableRow> getDayTable(DateTime now) {
     final firstDay = DateTime(now.year, now.month, 1);
     final lastDay = DateTime(now.year, now.month + 1, 0);
 
@@ -61,24 +62,14 @@ class CalendarContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final now = context.watch<CalendarProvider>().date;
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Table(
         children: [
           getHeaderTable(),
           // Weeks
-          ...getDayTable(),
-          // TableRow(
-          //   children: [
-          //     CalendarDay(isMarked: true),
-          //     CalendarDay(),
-          //     CalendarDay(),
-          //     CalendarDay(),
-          //     CalendarDay(),
-          //     CalendarDay(),
-          //     CalendarDay(),
-          //   ],
-          // ),
+          ...getDayTable(now),
         ],
       ),
     );

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:workouts_app/providers/providers.dart';
 
 List<String> months = [
   'January',
@@ -20,19 +22,29 @@ class CalendarHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final month = months[DateTime.now().month - 1];
+    final date = context.watch<CalendarProvider>().date;
+    final month = months[date.month - 1];
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              final newDate = DateTime(date.year, date.month - 1);
+
+              context.read<CalendarProvider>().updateDate(newDate);
+            },
             icon: Icon(Icons.arrow_back_ios_rounded),
           ),
           Text(month.toString()),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              final newDate = DateTime(date.year, date.month + 1);
+
+              context.read<CalendarProvider>().updateDate(newDate);
+            },
             icon: Icon(Icons.arrow_forward_ios_rounded),
           ),
         ],

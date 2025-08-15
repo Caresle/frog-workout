@@ -9,3 +9,4 @@ export './theme_provider.dart';
 // progress
 export './progress/statistics_provider.dart';
 export './progress/measures_provider.dart';
+export './progress/calendar_provider.dart';
