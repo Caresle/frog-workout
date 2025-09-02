@@ -11,7 +11,7 @@ class WorkoutMapper {
     List<WorkoutDetail> details = [];
 
     try {
-      final decoded = convert.json.decode(exercisesString);
+      final decoded = exercisesString;
       if (decoded is List) {
         exercises = List<Exercise>.from(
           decoded.map((e) => ExerciseMapper.fromJson(e)),
@@ -22,7 +22,7 @@ class WorkoutMapper {
     }
 
     try {
-      final decoded = convert.json.decode(detailsString);
+      final decoded = detailsString;
       if (decoded is List) {
         details = List<WorkoutDetail>.from(
           decoded.map((d) => WorkoutDetailMapper.fromJson(d)),
