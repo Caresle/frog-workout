@@ -24,16 +24,16 @@ class ExerciseItem extends StatelessWidget {
           children: [
             Row(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(6),
-                    color: Colors.blueGrey.shade800,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(4.0),
-                    child: Icon(Icons.fitness_center_rounded),
-                  ),
-                ),
+                // Container(
+                //   decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.circular(6),
+                //     color: Colors.blueGrey.shade800,
+                //   ),
+                //   child: Padding(
+                //     padding: const EdgeInsets.all(4.0),
+                //     child: Icon(Icons.fitness_center_rounded),
+                //   ),
+                // ),
                 const SizedBox(width: 8),
                 Text(exercise.name),
               ],

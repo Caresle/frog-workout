@@ -70,13 +70,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Frog Workouts',
       routerConfig: appRouter,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blueGrey,
-          brightness: isDark ? Brightness.dark : Brightness.light,
-        ),
-        useMaterial3: true,
-      ),
+      theme: AppStyle.themeData(isDark),
+      // theme: ThemeData(
+      //   colorScheme: ColorScheme.fromSeed(
+      //     seedColor: Colors.blueGrey,
+      //     brightness: isDark ? Brightness.dark : Brightness.light,
+      //   ),
+      //   useMaterial3: true,
+      // ),
     );
   }
 }
